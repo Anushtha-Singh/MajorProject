@@ -1,1 +1,8 @@
+Crowdsourced Safe Route Finder
 
+Problem: Women often face harassment in poorly lit or isolated areas.
+
+Solution: Develop an app that suggests the safest route based on real-time data such as lighting, CCTV coverage, crowd density, and past incident reports.
+The app could also allow users to mark unsafe locations.
+
+Unique Feature: Machine learning to dynamically update route safety based on user reports and incidents.
