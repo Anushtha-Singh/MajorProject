@@ -1,0 +1,496 @@
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/hamcftcw
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/hamcftcw
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/apwesmc
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/apwesmc
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/msynskfdc-h
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/msynskfdc-h
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/msymc
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/msymc
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/fams-hsb
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/fams-hsb
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/dbgmig
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/dbgmig
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/gsfmssg
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/gsfmssg
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/fasmmwsw-hlwb
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/fasmmwsw-hlwb
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/asd
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/asd
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/mafa
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/mafa
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/fpdbocwwb
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/fpdbocwwb
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/sjpwds
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/sjpwds
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/pwdhelper
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/pwdhelper
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/nari-adalat
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/nari-adalat
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/wspsl
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/wspsl
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/aldspsl
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/aldspsl
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/oaspsl
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/oaspsl
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/pmsch
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/pmsch
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/sapsp
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/sapsp
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/mtamsy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/mtamsy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/jpshc
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/jpshc
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/cbssc-msy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/cbssc-msy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/jpsma
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/jpsma
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/sesnvmly
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/sesnvmly
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/vlsy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/vlsy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/ihsfg
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/ihsfg
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/tafce
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/tafce
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/fbs
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/fbs
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/chs
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/chs
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/fesg
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/fesg
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/essg
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/essg
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/sfasisa
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/sfasisa
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/sfasiss
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/sfasiss
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/gispw
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/gispw
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/whl-181
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/whl-181
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/ipsfiomca
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/ipsfiomca
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/avg
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/avg
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/isecvcani
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/isecvcani
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/msdst
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/msdst
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/pmecrg
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/pmecrg
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/ihdpsscf
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/ihdpsscf
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/bvby
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/bvby
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/posess
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/posess
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/hscstfp
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/hscstfp
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/sdvay
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/sdvay
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/apafale
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/apafale
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/mts
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/mts
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/asr
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/asr
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/mmvyjsy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/mmvyjsy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/bpkpcckppy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/bpkpcckppy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/bpsyc
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/bpsyc
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/mmspy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/mmspy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/vbsy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/vbsy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/uspy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/uspy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/vdy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/vdy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/chsjgne
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/chsjgne
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/mdameao
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/mdameao
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/mdameni
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/mdameni
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/glbngs
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/glbngs
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/glrmy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/glrmy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/kvmy
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/kvmy
+--------------------------------------------------
+Scheme: 
+Description: Are you sure you want to sign out?
+URL: https://myscheme.gov.in/schemes/gfihrtp
+--------------------------------------------------
+Scheme: 
+Description: क्या आप साइन आउट करना चाहते हैं?
+URL: https://myscheme.gov.in/hi/schemes/gfihrtp
+--------------------------------------------------
