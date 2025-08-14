@@ -1,16 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../database');
+const schemeController = require('../controllers/schemesController');
 
-// Temporary test route to check DB connection
-router.get('/test', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT NOW()');
-    res.json({ success: true, time: result.rows[0] });
-  } catch (err) {
-    console.error('DB Error:', err);
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
+router.get('/', schemeController.getAllSchemes);
+router.get('/search', schemeController.searchSchemes);
+router.get('/summary', schemeController.getSummary);
+router.get('/:id', schemeController.getSchemeById);
 
 module.exports = router;
