@@ -1,5 +1,13 @@
 const schemeService = require('../database/queries/schemes');
 
+function validatePagination(pageQuery, limitQuery) {
+  let page = parseInt(pageQuery);
+  let limit = parseInt(limitQuery);
+  if (isNaN(page) || page < 1) page = 1;
+  if (isNaN(limit) || limit < 1 || limit > 100) limit = 20;
+  return { page, limit };
+}
+
 exports.getAllSchemes = async (req, res) => {
   try {
     const { page, limit } = validatePagination(req.query.page, req.query.limit);
@@ -23,11 +31,12 @@ exports.getAllSchemes = async (req, res) => {
 
 exports.getSchemeById = async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     
-    // Validate that id is a valid number
-    if (isNaN(id)) {
-      return res.status(400).json({ error: 'Invalid ID parameter. ID must be a number.' });
+    // Validate UUID (Supabase uses uuid for primary keys commonly)
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(id)) {
+      return res.status(400).json({ error: 'Invalid ID parameter. ID must be a valid UUID.' });
     }
     
     const scheme = await schemeService.getSchemeById(id);
