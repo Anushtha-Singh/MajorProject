@@ -4,7 +4,7 @@ const { buildSearchQuery, normalizeSearchTerms } = require('./searchUtils');
 async function getAllSchemes(page = 1, limit = 20) {
   const offset = (page - 1) * limit;
   const result = await pool.query(
-    'SELECT * FROM government_schemes ORDER BY created_at DESC LIMIT $1 OFFSET $2',
+    'SELECT * FROM government_schemes gs ORDER BY gs.id DESC LIMIT $1 OFFSET $2',
     [limit, offset]
   );
   return result.rows;
@@ -19,12 +19,12 @@ async function searchSchemes(keywords, page = 1, limit = 20) {
   const offset = (page - 1) * limit;
   
   const searchTerms = normalizeSearchTerms(keywords);
-  const { whereClause, params } = buildSearchQuery(searchTerms);
+  const { whereClause, params } = buildSearchQuery(searchTerms, 'gs');
   
   const result = await pool.query(
-    `SELECT * FROM government_schemes
+    `SELECT * FROM government_schemes gs
      ${whereClause}
-     ORDER BY created_at DESC
+     ORDER BY gs.id DESC
      LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
     [...params, limit, offset]
   );
@@ -33,12 +33,12 @@ async function searchSchemes(keywords, page = 1, limit = 20) {
 
 // Get total count for pagination metadata
 async function getTotalCount(keywords = '') {
-  let query = 'SELECT COUNT(*) FROM government_schemes';
+  let query = 'SELECT COUNT(*) FROM government_schemes gs';
   let params = [];
   
   if (keywords) {
     const searchTerms = normalizeSearchTerms(keywords);
-    const { whereClause, params: searchParams } = buildSearchQuery(searchTerms);
+    const { whereClause, params: searchParams } = buildSearchQuery(searchTerms, 'gs');
     query += ` ${whereClause}`;
     params = searchParams;
   }
