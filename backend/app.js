@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-
+const liveschemesRouter = require('./routes/liveschemes');
 const schemesRoutes = require('./routes/schemes');
 const testRoutes = require('./routes/test')
 
@@ -13,6 +13,7 @@ app.use(express.json());
 
 app.use('/api', testRoutes);
 app.use('/api', schemesRoutes);
+app.use('/liveschemes', liveschemesRouter);
 
 const PORT = 5000;
 app.listen(PORT, () => {
