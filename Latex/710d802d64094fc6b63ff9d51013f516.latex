@@ -1,0 +1,729 @@
+\documentclass[12pt,a4paper]{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{listings}
+
+% Page geometry
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    right=20mm,
+    top=20mm,
+    bottom=20mm,
+}
+
+% Headers and footers
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Government Scheme Portal}
+\lhead{SGSITS, Indore}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Title formatting - Reduce spacing before and after chapter headings
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}  % Reduced from 50pt/40pt to 10pt/20pt
+
+% Listings setup for code formatting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Government Scheme Portal},
+    pdfpagemode=FullScreen,
+}
+
+\begin{document}
+
+% Title page
+\begin{titlepage}
+\centering
+\begin{center}
+    {\LARGE\bfseries Shri Govindram Seksaria Institute of Technology and Science, Indore}
+\end{center}
+{\large A report Submitted In Partial Fulfilment of the requirements for the Award of Degree of}\\[0.5cm]
+{\LARGE\bfseries BACHELOR OF TECHNOLOGY}\\[0.5cm]
+{\large in}\\[0.5cm]
+{\Large\bfseries COMPUTER SCIENCE AND ENGINEERING}\\[1cm]
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Major/media/image1.png}
+\end{figure}
+{\large Department of Computer Science and Engineering}\\[2cm]
+{\Huge\bfseries Government Scheme Portal}\\[2cm]
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft}
+{\large\bfseries Guided By:}\\
+Prof. Priyanka Bamne \\
+Ms. Meghna Chandel
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.50\textwidth}
+\begin{flushright}
+{\large\bfseries Submitted By:}\\
+Anushtha Singh Kushwah – 0801CS233D01\\
+Harshita Bamniya – 0801CS233D04\\
+Mohan Manjhi – 0801CS233D05\\
+Shivani Choudhary – 0801CS33D08\\
+Shreyash Tiwari – 0801CS233D09
+\end{flushright}
+\end{minipage}
+\end{titlepage}
+
+% Recommendation page
+% Recommendation page
+
+\chapter*{}
+\thispagestyle{fancy}
+\vspace{-2cm} % Reduce top space
+
+\begin{center}
+    {\LARGE\bfseries Shri Govindram Seksaria Institute of Technology and Science, Indore}
+\end{center}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Major/media/image1.png}
+\end{figure}
+
+\vspace{0.5cm} % Adjusted spacing to move "RECOMMENDATION" down
+
+\begin{center}
+    {\LARGE \textbf{RECOMMENDATION}}
+\end{center}
+
+\vspace{0.5cm} % Space between heading and text
+
+This project report, titled \textbf{Government Scheme Portal}, is being developed by  
+\textbf{Anushtha Singh Kushwah, Shreyash Tiwari, Mohan Manjhi, Harshita Bamniya, and Shivani Choudhary} under the guidance of  
+\textbf{Prof. Priyanka Bamne} and \textbf{Ms. Meghna Chandel} in the Department of Computer Science and Engineering, \textbf{S.G.S.I.T.S. Indore}.
+
+\vspace{0.5cm} % Space between paragraphs
+
+The project is being undertaken as part of the academic curriculum for the B.Tech program and is currently in progress during the 6th semester. It aims to develop a web-based platform to help users find relevant government schemes efficiently through search functionality, chatbot integration, and multilingual support.
+
+\vspace{0.5cm} % Space between paragraphs
+
+This document serves as a record of the work completed so far and outlines the project's objectives, methodology, and expected outcomes.
+
+\vspace{6cm}
+
+\begin{minipage}{0.45\textwidth}
+\begin{center}
+\textbf{Prof. Priyanka Bamne}\\
+(Guide)
+\end{center}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{center}
+\textbf{Ms. Meghna Chandel}\\
+(Co-Guide)
+\end{center}
+\end{minipage}
+
+
+
+% Certificate page
+
+\chapter*{}
+\thispagestyle{fancy}
+\vspace{-2cm} % Reduce top space
+
+\begin{center}
+    {\LARGE\bfseries Shri Govindram Seksaria Institute of Technology and Science, Indore}
+\end{center}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Major/media/image1.png}
+\end{figure}
+
+\vspace{0.5cm} % Adjusted spacing to move "RECOMMENDATION" down
+
+\begin{center}
+    {\LARGE \textbf{CERTIFICATE}}
+\end{center}
+
+\vspace{0.5cm} % Space between heading and text
+
+This is to certify that the project report, titled  \textbf{``Government Scheme Portal''}, is being developed by  \textbf{Anushtha Singh Kushwah, Shreyash Tiwari, Mohan Manjhi, Harshita Bamniya, and Shivani Choudhary} under the guidance of  \textbf{Prof. Priyanka Bamne} and  \textbf{Ms. Meghna Chandel} in the Department of Computer Science and Engineering, \textbf{S.G.S.I.T.S. Indore} during the academic year 2025, is a record of their own work and is accepted in the partial fulfillment for the award of the degree of Bachelor of Computer Science Engineering.
+
+\vspace{8cm}
+\noindent
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft}
+Internal Examiner\\
+Date:
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{flushright}
+External Examiner\\
+Date:
+\end{flushright}
+\end{minipage}
+
+% Table of contents
+\tableofcontents
+\thispagestyle{fancy}
+
+% Abstract
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\thispagestyle{fancy}
+
+In recent years, the Indian government has launched numerous welfare schemes targeting various sectors such as education, agriculture, healthcare, employment, and social justice. However, due to fragmented information across multiple government websites, accessing and understanding these schemes remains a challenge for the common citizen. 
+
+The Government Scheme Portal is a centralized platform designed to address this gap. It aims to empower users—particularly those with limited digital literacy—by simplifying access to relevant scheme information through automated web scraping, intelligent search, and language support. The platform consolidates data from official government portals, processes it into a user-friendly format, and offers interactive chatbot-based assistance for queries.
+
+By integrating speech-to-text, regional language support, and a responsive web interface, the portal enhances accessibility for rural populations, elderly citizens, and those with disabilities. The implementation of machine learning algorithms enables personalized scheme recommendations based on user profiles and eligibility criteria, significantly improving the likelihood of citizens finding relevant assistance programs. Additionally, the platform's intuitive visual design and step-by-step application guidance removes traditional barriers to welfare program enrollment.
+
+Future development includes a mobile application to increase reach and usability across devices, offline functionality for areas with limited connectivity, and integration with digital identity verification to streamline application processes. This project represents a significant step toward improving digital governance and ensuring that the benefits of public welfare schemes are accessible to every eligible citizen regardless of their technical proficiency, language preference, or geographic location.
+
+% Introduction
+\chapter{Introduction}
+\thispagestyle{fancy}
+
+\section{Background and Context}
+In India, numerous government schemes are launched to benefit different sections of society. However, this information is scattered across multiple government websites, making it difficult for citizens to find relevant schemes. Many citizens, especially those from rural areas and elderly populations, miss out on benefits they are eligible for simply due to information barriers.
+
+\section{Motivation for the Project}
+\begin{itemize}
+    \item Many government websites are not user-friendly, especially for older citizens
+    \item Lack of a centralized platform to search and filter schemes
+    \item Existing platforms do not support regional languages, making it difficult for non-English speakers to access information
+    \item Digital divide creates barriers for those with limited technical skills
+    \item Underutilization of benefits due to information inaccessibility
+    \item Growing smartphone penetration creates opportunity for mobile-friendly solutions
+\end{itemize}
+
+\section{Objectives and Scope}
+The main goal is to create a user-friendly platform that allows users to:
+\begin{itemize}
+    \item Search for government schemes based on keywords
+    \item Get personalized recommendations based on eligibility
+    \item Use a chatbot to find relevant schemes through conversation
+    \item Convert text into different local languages for better accessibility
+    \item Enable speech-based queries for users who are not comfortable typing
+    \item Provide clear eligibility criteria and application processes for each scheme
+\end{itemize}
+
+% Literature Review
+\chapter{Literature Review}
+\thispagestyle{fancy}
+
+\section{Related Work}
+Our examination of existing solutions reveals several approaches to providing government scheme information:
+\begin{enumerate}
+    \item Government Portals:
+    \begin{itemize}
+        \item MyGov Portal: Focuses on citizen engagement but offers limited scheme discovery features
+        \item National Portal of India: Provides information across departments but lacks user-centric organization
+        \item PM Kisan Portal: Well-designed for a specific scheme but represents the fragmented approach
+        \item State Government Websites: Inconsistent design and information architecture across states
+    \end{itemize}
+    
+    \item Private Platforms:
+    \begin{itemize}
+        \item IndiaFilings: Provides scheme information with business services but limited to major schemes
+        \item GovInfo by Factly: Consolidates information in journalistic format but lacks interactivity
+    \end{itemize}
+    
+    \item Mobile Applications:
+    \begin{itemize}
+        \item UMANG: Combines multiple services but prioritizes delivery over discovery
+    \end{itemize}
+\end{enumerate}
+
+\section{Gaps in Existing Knowledge}
+Based on our review, we identified several critical gaps:
+\begin{itemize}
+    \item No comprehensive aggregation of schemes across government levels
+    \item Limited search intelligence and natural language understanding
+    \item Absence of personalization based on user profiles
+    \item Insufficient accessibility features for diverse user needs
+    \item Lack of conversational interfaces for guided discovery
+    \item Outdated information across many platforms
+    \item Complex navigation structures that reflect government organization rather than user needs
+\end{itemize}
+
+% Problem Statement
+\chapter{Problem Statement}
+\thispagestyle{fancy}
+
+The lack of a centralized, user-friendly, and accessible platform for discovering and understanding government schemes creates substantial barriers for Indian citizens attempting to access welfare benefits they are entitled to. This problem is particularly acute for digitally less confident users, speakers of regional languages, elderly citizens, and rural populations. The current ecosystem of fragmented portals with complex interfaces, limited search capabilities, and inconsistent language support results in eligible citizens missing opportunities for critical support in areas such as education, healthcare, financial assistance, and social security.
+
+The Government Scheme Portal project addresses this problem by developing a unified, accessible platform that consolidates scheme information, implements intelligent search and conversational interfaces, supports multiple Indian languages, and provides personalized recommendations, thus democratizing access to welfare scheme information across demographic and technological divides.
+
+% Methodology
+\chapter{Methodology}
+\thispagestyle{fancy}
+
+\section{Detailed Plan of Action}
+Our methodology combines user-centered design with agile development principles:
+\begin{enumerate}
+    \item User Research and Design:
+    \begin{itemize}
+        \item Conduct user interviews with diverse demographic groups
+        \item Create user personas representing different citizen profiles
+        \item Develop journey maps and wireframes for testing
+        \item Iterate designs based on usability feedback
+    \end{itemize}
+    
+    \item Data Collection and Structuring:
+    \begin{itemize}
+        \item Identify authoritative sources for scheme information
+        \item Define standardized schema for scheme data
+        \item Implement web scraping for government websites
+        \item Develop data validation protocols
+    \end{itemize}
+    
+    \item Technical Implementation:
+    \begin{itemize}
+        \item Component-based architecture for maintainability
+        \item Responsive design for cross-device compatibility
+        \item RESTful APIs for data access
+        \item Modular services for core functionality
+    \end{itemize}
+    
+    \item Natural Language Processing:
+    \begin{itemize}
+        \item Train models for understanding scheme queries
+        \item Implement intent recognition for chatbot
+        \item Develop entity extraction for user information
+        \item Create dialogue management for conversations
+    \end{itemize}
+\end{enumerate}
+
+\section{Web Scraping Implementation}
+\subsection{Overview of Web Scraping Process}
+We implemented a comprehensive web scraping pipeline to aggregate government scheme information from multiple official sources. Our parser-based approach uses Python libraries to extract structured data from government websites while respecting ethical web scraping practices.
+
+\subsection{Web Scraping Stack}
+\begin{itemize}
+    \item \textbf{Python Libraries:} Requests for HTTP requests, BeautifulSoup for HTML parsing
+    \item \textbf{Data Processing:} Pandas for data manipulation and storage
+    \item \textbf{Ethical Considerations:} Implementation of delays and proper headers
+\end{itemize}
+
+\subsection{Parser-Based Scraping Workflow}
+Our parser-based scraping workflow follows these steps:
+\begin{enumerate}
+    \item \textbf{Source Identification:} We identify and catalog relevant government websites containing scheme information
+    \item \textbf{URL Collection:} We extract URLs for individual scheme pages from index/listing pages
+    \item \textbf{HTML Fetching:} Using Python's requests library, we fetch the raw HTML content
+    \item \textbf{DOM Parsing:} BeautifulSoup parses the HTML structure into navigable DOM objects
+    \item \textbf{Data Extraction:} We extract specific elements like titles, descriptions, eligibility criteria, and benefits
+    \item \textbf{Data Cleaning:} We clean and normalize the extracted text data
+    \item \textbf{Structured Storage:} The cleaned data is stored in a structured format in our database
+\end{enumerate}
+
+\subsection{URL Extraction Process}
+The first step in our data collection pipeline was extracting URLs for individual scheme pages:
+
+\begin{lstlisting}[language=Python, caption=URL Extraction Code]
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import time
+
+# Set headers to mimic browser behavior
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive'
+}
+
+# List to store all scheme URLs
+full_urls = []
+
+# Main listing page URL
+main_url = "https://example.gov.in/schemes"
+
+# Get HTML content
+response = requests.get(main_url, headers=headers)
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Extract all scheme links
+scheme_links = soup.find_all('a', class_='scheme-link')
+for link in scheme_links:
+    url = link['href']
+    full_urls.append(url)
+
+# Save URLs to CSV
+url_df = pd.DataFrame(full_urls, columns=['url'])
+url_df.to_csv('scheme_urls.csv', index=False)
+\end{lstlisting}
+
+\subsection{Data Extraction from Individual Schemes}
+For each extracted URL, we implemented a process to visit the page and extract specific scheme details:
+
+\begin{lstlisting}[language=Python, caption=Scheme Data Extraction Code]
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import time
+
+# Read URLs from previous step
+urls_df = pd.read_csv('scheme_urls.csv')
+scheme_urls = urls_df['url'].tolist()
+
+# List to store all scheme data
+all_schemes = []
+
+# Process each URL
+for url in scheme_urls:
+    # Add delay to respect server resources
+    time.sleep(1)
+    
+    response = requests.get(url, headers=headers)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Extract scheme details using selectors
+    try:
+        scheme_title = soup.find('h1', class_='scheme-title').text.strip()
+        scheme_desc = soup.find('div', class_='scheme-description').text.strip()
+        scheme_eligibility = soup.find('div', class_='eligibility').text.strip()
+        
+        # Create data dictionary
+        data = {
+            'Title': scheme_title,
+            'Description': scheme_desc,
+            'Eligibility': scheme_eligibility,
+            'URL': url
+        }
+        
+        all_schemes.append(data)
+    except Exception as e:
+        print(f"Error processing {url}: {e}")
+
+# Convert to DataFrame and save
+schemes_df = pd.DataFrame(all_schemes)
+schemes_df.to_csv('schemes_data.csv', index=False)
+\end{lstlisting}
+
+\subsection{Ethical Web Scraping Practices}
+We implemented several measures to ensure ethical web scraping:
+
+\begin{itemize}
+    \item \textbf{Request Delays:} We included a 1-second delay between requests using \texttt{time.sleep(1)} to avoid overwhelming servers and simulate human browsing behavior.
+    \item \textbf{Browser Headers:} We used proper HTTP headers to identify our requests transparently.
+    \item \textbf{Error Handling:} We implemented robust error handling to manage unexpected HTML structures or server responses.
+    \item \textbf{Rate Limiting:} Our scraper was designed to respect the implicit rate limits of government websites.
+\end{itemize}
+
+\section{Chatbot Implementation}
+\subsection{Chatbot Architecture}
+We developed a conversational interface to help users discover relevant government schemes through natural language queries:
+
+\begin{itemize}
+    \item \textbf{Frontend:} HTML, CSS, and JavaScript to create a responsive chat interface
+    \item \textbf{Backend:} n8n webhook endpoint for processing queries
+    \item \textbf{Language Support:} Hindi and English queries supported
+\end{itemize}
+
+\subsection{Chatbot Features}
+\begin{itemize}
+    \item \textbf{Chat History:} Local storage for persisting conversation history across sessions
+    \item \textbf{Typing Indicator:} Visual feedback showing when the bot is processing
+    \item \textbf{Session Management:} Unique session IDs using UUID for tracking conversations
+    \item \textbf{Error Handling:} Graceful responses when backend services are unavailable
+\end{itemize}
+
+\subsection{Conversation Flow}
+\begin{enumerate}
+    \item User enters a query about government schemes (e.g., "मुझे शिक्षा योजना चाहिए")
+    \item Query is sent to the n8n webhook endpoint
+    \item Backend processes the query using NLP techniques
+    \item Relevant schemes are identified and formatted as a response
+    \item Response is displayed to the user in the chat interface
+\end{enumerate}
+
+\section{Technology Stack}
+\subsection{Frontend}
+\begin{itemize}
+    \item React.js for component-based UI development
+    \item Tailwind CSS for responsive styling
+    \item Accessibility components for inclusive design
+\end{itemize}
+
+\subsection{Backend}
+\begin{itemize}
+    \item Node.js with Express.js for API development
+    \item Search service for query processing
+    \item Chatbot service for conversational interface
+    \item Language service for translations
+\end{itemize}
+
+\subsection{Database}
+\begin{itemize}
+    \item PostgreSQL via Supabase for structured data storage
+    \item Analytics store for usage tracking
+    \item Session management for user state
+\end{itemize}
+
+\subsection{External Services}
+\begin{itemize}
+    \item OpenAI API for NLP capabilities
+    \item Bhashini API for language translation
+    \item Web scraping services for data collection
+\end{itemize}
+
+\section{Project Timeline}
+\begin{itemize}
+    \item Phase 1: Requirements Gathering and Design (2 weeks)
+    \item Phase 2: Database Development and Data Collection (3 weeks)
+    \item Phase 3: Core Interface Implementation (4 weeks)
+    \item Phase 4: Chatbot and Search Development (3 weeks)
+    \item Phase 5: Language and Accessibility Features (2 weeks)
+    \item Phase 6: Testing and Refinement (2 weeks)
+\end{itemize}
+
+\section{UML Diagrams}
+\subsection{Flow Chart}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Major/media/image2.png}
+    \caption{Flow Chart of Government Scheme Portal}
+    \label{fig:flowchart}
+\end{figure}
+
+\subsection{Architecture Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Major/media/image3.png}
+    \caption{Architecture Diagram of Government Scheme Portal}
+    \label{fig:architecture}
+\end{figure}
+
+\subsection{Class Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Major/media/image4.png}
+    \caption{Class Diagram of Government Scheme Portal}
+    \label{fig:class}
+\end{figure}
+
+\subsection{Use Case Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Major/media/image5.png}
+    \caption{Use Case Diagram of Government Scheme Portal}
+    \label{fig:usecase}
+\end{figure}
+
+\subsection{Activity Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Major/media/image6.png}
+    \caption{Activity Diagram of Government Scheme Portal}
+    \label{fig:activity}
+\end{figure}
+
+\subsection{Data Flow Diagram for Web Scraping}
+\begin{figure}[H]
+    \centering
+    % Comment: Include actual diagram file when available
+    \caption{Data Flow Diagram for Web Scraping Process}
+    \label{fig:dataflow}
+\end{figure}
+
+\subsection{Website Prototype \url{https://v0-voice-based-ui-prototype.vercel.app/}} 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Major/media/image11.png}
+    \caption{Government Scheme Portal Prototype Interface}
+    \label{fig:prototype}
+\end{figure}
+
+\subsection{Chatbot Interface}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Major/media/image10.png}
+    \caption{Government Scheme Portal Prototype Interface}
+    \label{fig:prototype}
+\end{figure}
+
+% Expected Outcomes
+\chapter{Expected Outcomes}
+\thispagestyle{fancy}
+
+The Government Scheme Portal is expected to deliver several key outcomes:
+
+\section{A Working Prototype with the following features}
+\begin{itemize}
+    \item Searchable database of government schemes compiled through automated web scraping
+    \item Interactive chatbot with conversational abilities in Hindi and English
+    \item Multi-language support for major Indian languages
+    \item Speech-to-text functionality for voice queries
+    \item Eligibility checker for scheme qualification
+\end{itemize}
+
+\section{Comprehensive Dataset of Government Schemes}
+\begin{itemize}
+    \item Structured database of central and state government schemes
+    \item Regular updates through automated web scraping pipelines
+    \item Consistent format for scheme information across different sources
+    \item Rich metadata including eligibility, benefits, and application procedures
+\end{itemize}
+
+\section{Improved Accessibility}
+\begin{itemize}
+    \item Simplified information architecture for intuitive navigation
+    \item Support for regional languages to overcome language barriers
+    \item Voice interface for users with limited literacy or typing skills
+    \item Mobile-responsive design for access across devices
+\end{itemize}
+
+\section{Enhanced User Experience}
+\begin{itemize}
+    \item Personalized scheme recommendations based on user criteria
+    \item Clear explanation of complex eligibility requirements
+    \item Step-by-step guidance for application processes
+    \item Consistent information structure across all schemes
+\end{itemize}
+
+\section{Impact Metrics}
+\begin{itemize}
+    \item Increased discovery of relevant schemes by users
+    \item Reduced time to find applicable government benefits
+    \item Greater engagement from traditionally underserved demographics
+    \item User satisfaction with information clarity and accessibility
+\end{itemize}
+
+% Resources Required
+\chapter{Resources Required}
+\thispagestyle{fancy}
+
+\section{Software Requirements}
+For the implementation and execution of our project, the following software components are required:
+
+\begin{itemize}
+\item \textbf{Development Environment:} React, Node.js
+\item \textbf{Database Management System:} PostgreSQL
+\item \textbf{Version Control System:} Git/GitHub for source code management
+\item \textbf{API Integration Tools:} Tools for seamless communication with external services
+\item \textbf{Hosting and Deployment:} Vercel for efficient deployment and scalability
+\item \textbf{Web Scraping Tools:} Python with BeautifulSoup and Requests libraries
+\end{itemize}
+
+\section{Hardware Requirements}
+To ensure a smooth development and testing process, the following hardware resources are necessary:
+
+\begin{itemize}
+\item \textbf{Development Machines:} High-performance computers or laptops for all team members
+\item \textbf{Testing Devices:} A range of devices, including mobile phones, tablets, and desktops, to ensure cross-platform compatibility
+\item \textbf{Server Infrastructure:} Cloud or on-premise servers for hosting and running backend services
+\end{itemize}
+
+\section{APIs and Services}
+Integration with third-party APIs and services will enhance our application's functionality. The following APIs and services are required:
+
+\begin{itemize}
+\item \textbf{OpenAI API:} For advanced natural language processing capabilities
+\item \textbf{Bhashini API:} For multilingual translation support
+\item \textbf{Web Scraping Tools:} For automated data collection from various sources
+\item \textbf{Speech Recognition Services:} To enable voice-based interactions
+\item \textbf{n8n Webhook:} For chatbot backend processing
+\end{itemize}
+
+\section{Development Tools}
+Efficient development and debugging require a suite of specialized tools. The following tools will be used:
+
+\begin{itemize}
+\item \textbf{Integrated Development Environment (IDE):} Visual Studio Code or an equivalent IDE
+\item \textbf{UI/UX Design Tools:} Figma for designing user interfaces and user experiences
+\item \textbf{API Testing Tools:} Postman for testing API endpoints
+\item \textbf{Browser Development Tools:} Built-in browser tools for debugging and performance analysis
+\item \textbf{Data Processing Tools:} Pandas for data manipulation and analysis
+\end{itemize}
+
+Each of these resources plays a crucial role in ensuring the efficiency, reliability, and scalability of our project. Proper allocation and management of these resources will facilitate the successful development and deployment of our system.
+
+% References with bibliography directly included in the chapter
+\chapter{References}
+\thispagestyle{fancy}
+
+\sloppy % Prevents overflow issues with long URLs
+
+\vspace{-0.5cm} % Adjusts spacing to keep references within the same page
+
+\begin{itemize}
+
+\item \textbf{myScheme Gov. Portal} Used for Webscrapping \url{https://www.myscheme.gov.in/}
+
+
+\item \textbf{Ministry of Electronics and Information Technology.} (2023). Digital India Programme. Government of India. \url{https://digitalindia.gov.in/}
+
+\item \textbf{Sharma, A., Patel, V., \& Mehta, S.} (2023). User-Centered Design Approaches for E-Governance Platforms in Developing Nations. Journal of Public Administration and Digital Transformation, 12(3), 78-92.
+
+\item \textbf{Mehta, R., \& Patel, J.} (2022). Conversational Interfaces for E-Governance: A Study of Adoption Patterns Among Rural Users. International Journal of Human-Computer Interaction, 38(5), 423-437.
+
+\item \textbf{National Informatics Centre.} (2024). Guidelines for Indian Government Websites. Ministry of Electronics and Information Technology. \url{https://web.guidelines.gov.in/}
+
+\item \textbf{World Bank.} (2023). Digital Government Readiness Assessment: India. World Bank Group. \url{https://documents.worldbank.org/}
+
+\item \textbf{MyGov Portal.} (2024). Government of India. \url{https://mygov.in/}
+
+\item \textbf{PM Kisan Portal.} (2024). Ministry of Agriculture \& Farmers Welfare. \url{https://pmkisan.gov.in/}
+
+\item \textbf{UMANG App Documentation.} (2023). National e-Governance Division. Ministry of Electronics \& Information Technology. \url{https://web.umang.gov.in/}
+
+\item \textbf{W3C Web Accessibility Initiative.} (2023). Web Content Accessibility Guidelines (WCAG) 2.1. \url{https://www.w3.org/TR/WCAG21/}
+
+\item \textbf{Richardson, L.} (2022). Beautiful Soup Documentation. \url{https://www.crummy.com/software/BeautifulSoup/bs4/doc/}
+
+\item \textbf{Reitz, K.} (2023). Requests: HTTP for Humans. \url{https://requests.readthedocs.io/}
+
+\item \textbf{McKinney, W.} (2022). pandas: Python Data Analysis Library. \url{https://pandas.pydata.org/}
+
+\end{itemize}
+
+
+\end{document}
