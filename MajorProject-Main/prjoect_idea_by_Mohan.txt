@@ -1,0 +1,4 @@
+Healthcare Management System:
+
+Problem Statement: Lack of a unified digital platform for patient records across various healthcare facilities.
+Software Solution: Develop a centralized electronic health record (EHR) system that integrates with hospitals, clinics, and labs to provide real-time access to patient data, improving diagnosis and treatment.
