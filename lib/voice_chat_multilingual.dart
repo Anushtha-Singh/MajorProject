@@ -19,6 +19,7 @@ class _VoiceChatMultilingualState extends State<VoiceChatMultilingual> {
   // 🔑 Replace with your real keys
   static const String bhashiniApiToken = '';
   static const String openAIApiKey = '';
+
   // UI / State
   final TextEditingController _textController = TextEditingController();
   final List<Map<String, String>> _messages = []; // {role: user|assistant, text: ...}
@@ -349,5 +350,4 @@ class _VoiceChatMultilingualState extends State<VoiceChatMultilingual> {
       ),
     );
   }
-
 }
