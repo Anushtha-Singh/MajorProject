@@ -17,9 +17,8 @@ class VoiceChatMultilingual extends StatefulWidget {
 
 class _VoiceChatMultilingualState extends State<VoiceChatMultilingual> {
   // 🔑 Replace with your real keys
-  static const String bhashiniApiToken = 'T7ZkEwpYydBBp7G-uSwZRN-5S1RmQdnBPgIdIbCv8K8aisG_lxoA6rfXmDxY9hHV';
-  static const String openAIApiKey = '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';
-
+  static const String bhashiniApiToken = '';
+  static const String openAIApiKey = '';
   // UI / State
   final TextEditingController _textController = TextEditingController();
   final List<Map<String, String>> _messages = []; // {role: user|assistant, text: ...}
@@ -350,4 +349,5 @@ class _VoiceChatMultilingualState extends State<VoiceChatMultilingual> {
       ),
     );
   }
+
 }
