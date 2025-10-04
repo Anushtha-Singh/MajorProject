@@ -1,4 +1,6 @@
 # Logs
+.env
+Chatbot/chatbot-react/public/chatbot/main.dart.js
 logs
 *.log
 npm-debug.log*
