@@ -1,6 +1,7 @@
 import Home from "./pages/Home";
 import Schemes from "./pages/Schemes";
 import SchemeDetails from "./pages/SchemeDetails";
+import Chat from "./pages/Chat";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Schemes" element={<Schemes />} />
         <Route path="/Schemes/:id" element={<SchemeDetails />} />
+        <Route path="/chat" element={<Chat />} />
         {/* Later we can add more routes like Schemes, FAQ, etc. */}
       </Routes>
     </BrowserRouter>
