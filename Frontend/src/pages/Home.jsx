@@ -1,7 +1,8 @@
 // src/pages/HomePage.jsx
 import Navbar from "../components/Navbar";
+import YojnaSaathi from "../components/YojnaSaathi";
 import { useState, useRef, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   Globe, 
   Search, 
@@ -23,6 +24,7 @@ export default function Home() {
   const [lang, setLang] = useState("en"); // 'en' | 'hi'
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef(null);
+  const navigate = useNavigate();
 
   // Minimal i18n
   const t = useMemo(() => {
@@ -99,7 +101,10 @@ export default function Home() {
                 {lang === 'en' ? 'Browse Schemes' : 'योजनाएँ देखें'}
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
-              <button className="inline-flex items-center gap-2 rounded-full bg-[#1E90FF] text-white px-6 py-3 font-medium">
+              <button 
+                onClick={() => navigate('/chat')}
+                className="inline-flex items-center gap-2 rounded-full bg-[#1E90FF] text-white px-6 py-3 font-medium hover:bg-[#1E7FE6] transition-colors"
+              >
                 <HelpCircle className="w-4 h-4" />
                 {t.chatbot}
               </button>
@@ -260,7 +265,10 @@ export default function Home() {
                 ? 'Our multilingual assistant can guide you in your preferred language.'
                 : 'हमारा बहुभाषी सहायक आपकी पसंदीदा भाषा में आपका मार्गदर्शन कर सकता है।'}
             </p>
-            <button className="mt-4 inline-flex items-center gap-2 rounded-full bg-white text-[#1E90FF] px-6 py-2 font-medium">
+            <button 
+              onClick={() => navigate('/chat')}
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-white text-[#1E90FF] px-6 py-2 font-medium hover:bg-gray-50 transition-colors"
+            >
               <HelpCircle className="w-4 h-4" />
               {t.chatbot}
             </button>
@@ -289,6 +297,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* YojnaSaathi Chatbot */}
+      <YojnaSaathi />
     </div>
   );
 }
