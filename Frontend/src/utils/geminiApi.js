@@ -1,8 +1,14 @@
 // Gemini API integration for YojnaSaathi
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize Gemini AI (you'll need to add your API key)
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyB0l8PIY6qx05E8fZzYjB9r7qbAHNUvmOQ');
+// Initialize Gemini AI with secure environment variable
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+if (!apiKey) {
+  console.warn('Gemini API key not found. Please add VITE_GEMINI_API_KEY to your .env file');
+}
+
+const genAI = new GoogleGenerativeAI(apiKey || 'demo-key');
 
 // System prompt for the chatbot
 const getSystemPrompt = (language) => {
