@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
     ChevronLeft,
     ChevronDown,
@@ -20,9 +21,73 @@ import {
 import Navbar from "../components/Navbar"; // Import the Navbar component
 
 export default function SchemeDetails() {
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState("details");
     const [expandedFaq, setExpandedFaq] = useState(null);
+    const [scheme, setScheme] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const contentRef = useRef(null);
+
+    // Fetch scheme data
+    useEffect(() => {
+        const fetchScheme = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const response = await fetch(`http://localhost:5001/api/${id}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setScheme(data);
+            } catch (err) {
+                setError(err.message);
+                console.error('Error fetching scheme:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (id) {
+            fetchScheme();
+        }
+    }, [id]);
+
+    // Parse JSON strings from the API
+    const parseJsonField = (field) => {
+        if (!field) return [];
+        if (Array.isArray(field)) return field;
+        
+        // Handle string format where items are wrapped in single quotes and separated by commas
+        if (typeof field === 'string') {
+            try {
+                // First try standard JSON parsing
+                return JSON.parse(field);
+            } catch (e) {
+                // If JSON parsing fails, try to parse the single-quoted format
+                // This handles cases like: "['item1', 'item2, with comma', 'item3']"
+                const singleQuotePattern = /'([^']*(?:''[^']*)*)'/g;
+                const matches = [];
+                let match;
+                
+                while ((match = singleQuotePattern.exec(field)) !== null) {
+                    // Replace double single quotes with single quotes (unescape)
+                    matches.push(match[1].replace(/''/g, "'"));
+                }
+                
+                if (matches.length > 0) {
+                    return matches;
+                }
+                
+                // If no single-quoted items found, return the field as a single item
+                return [field];
+            }
+        }
+        
+        return [field];
+    };
 
     // FAQ data
     const faqs = [
@@ -74,6 +139,67 @@ export default function SchemeDetails() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Loading state
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gray-50">
+                <Navbar />
+                <main className="max-w-7xl mx-auto px-4 py-6">
+                    <div className="flex items-center justify-center h-64">
+                        <div className="flex items-center gap-2">
+                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#0271BC]"></div>
+                            Loading scheme details...
+                        </div>
+                    </div>
+                </main>
+            </div>
+        );
+    }
+
+    // Error state
+    if (error) {
+        return (
+            <div className="min-h-screen bg-gray-50">
+                <Navbar />
+                <main className="max-w-7xl mx-auto px-4 py-6">
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+                        <h2 className="text-xl font-semibold text-red-800 mb-2">Error Loading Scheme</h2>
+                        <p className="text-red-600 mb-4">{error}</p>
+                        <button 
+                            onClick={() => navigate('/Schemes')}
+                            className="inline-flex items-center gap-2 rounded-full bg-[#0271BC] text-white px-4 py-2"
+                        >
+                            <ChevronLeft className="w-4 h-4" />
+                            Back to Schemes
+                        </button>
+                    </div>
+                </main>
+            </div>
+        );
+    }
+
+    // No scheme found
+    if (!scheme) {
+        return (
+            <div className="min-h-screen bg-gray-50">
+                <Navbar />
+                <main className="max-w-7xl mx-auto px-4 py-6">
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 text-center">
+                        <h2 className="text-xl font-semibold text-yellow-800 mb-2">Scheme Not Found</h2>
+                        <p className="text-yellow-600 mb-4">The requested scheme could not be found.</p>
+                        <button 
+                            onClick={() => navigate('/Schemes')}
+                            className="inline-flex items-center gap-2 rounded-full bg-[#0271BC] text-white px-4 py-2"
+                        >
+                            <ChevronLeft className="w-4 h-4" />
+                            Back to Schemes
+                        </button>
+                    </div>
+                </main>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Use the Navbar component */}
@@ -82,7 +208,10 @@ export default function SchemeDetails() {
             <main className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Left Navigation Sidebar */}
                 <aside className="lg:col-span-3 xl:col-span-2 space-y-4 sticky top-20 self-start">
-                    <button className="flex items-center gap-2 text-[#0271BC] hover:underline">
+                    <button 
+                        onClick={() => navigate('/Schemes')}
+                        className="flex items-center gap-2 text-[#0271BC] hover:underline"
+                    >
                         <ChevronLeft className="w-5 h-5" />
                         Back to schemes
                     </button>
@@ -115,18 +244,30 @@ export default function SchemeDetails() {
                     {/* Scheme Header */}
                     <div className="bg-white rounded-xl p-6 shadow-sm border">
                         <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                            Prime Minister's Fellowship for Doctoral Research
+                            {scheme["Scheme Title"] || "Untitled Scheme"}
                         </h1>
                         <p className="text-gray-600 mt-1">
-                            Ministry of Science and Technology
+                            {scheme["Department/State"] || "Unknown Department"}
                         </p>
 
                         <div className="mt-4 flex flex-wrap gap-2">
-                            {["Doctoral", "Fellowship", "Research", "Science"].map((tag) => (
-                                <span key={tag} className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+                            {parseJsonField(scheme.Tags).slice(0, 6).map((tag, index) => (
+                                <span key={index} className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
                                     {tag}
                                 </span>
                             ))}
+                        </div>
+
+                        <div className="mt-4 flex flex-wrap gap-2 text-sm text-gray-600">
+                            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100">
+                                Level: {scheme.Level || "Unknown"}
+                            </span>
+                            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100">
+                                Type: {scheme["Benefit Type"] || "Unknown"}
+                            </span>
+                            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100">
+                                Category: {scheme["Scheme Category"] || "Unknown"}
+                            </span>
                         </div>
 
                         <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#0271BC] text-white px-6 py-2 font-medium">
@@ -139,118 +280,91 @@ export default function SchemeDetails() {
                     <div id="details" className="bg-white rounded-xl p-6 shadow-sm border">
                         <h2 className="text-xl font-semibold text-gray-900 mb-4">Details</h2>
                         <p className="text-gray-700 mb-4">
-                            The Prime Minister's Fellowship for Doctoral Research aims to support outstanding PhD students in science and technology domains. The scheme provides financial assistance and industry collaboration opportunities.
+                            {scheme.Details || "No details available for this scheme."}
                         </p>
-                        <h3 className="font-medium text-gray-900 mt-4">Aim</h3>
-                        <p className="text-gray-700">
-                            To promote high-quality research in cutting-edge areas of science and technology by providing financial support and fostering industry-academia collaboration.
-                        </p>
-                        <h3 className="font-medium text-gray-900 mt-4">Key Features</h3>
-                        <ul className="list-disc pl-5 space-y-2 text-gray-700">
-                            <li>Generous monthly stipend for up to 4 years</li>
-                            <li>Industry mentorship and collaboration opportunities</li>
-                            <li>Contingency grant for research expenses</li>
-                            <li>International conference travel support</li>
-                        </ul>
-                        <h3 className="font-medium text-gray-900 mt-4">Duration</h3>
-                        <p className="text-gray-700">
-                            The fellowship is awarded for a period of 4 years, extendable by 1 year based on performance evaluation.
-                        </p>
+                        {scheme.URL && (
+                            <div className="mt-4">
+                                <a 
+                                    href={scheme.URL} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 text-[#0271BC] hover:underline"
+                                >
+                                    <ArrowUpRight className="w-4 h-4" />
+                                    Visit Official Website
+                                </a>
+                            </div>
+                        )}
                     </div>
 
                     {/* Benefits Section */}
                     <div id="benefits" className="bg-white rounded-xl p-6 shadow-sm border">
                         <h2 className="text-xl font-semibold text-gray-900 mb-4">Benefits</h2>
-                        <ul className="space-y-3">
-                            <li className="flex items-start gap-3">
-                                <div className="bg-blue-100 p-1 rounded-full mt-0.5">
-                                    <Star className="w-4 h-4 text-blue-600" />
-                                </div>
-                                <div>
-                                    <h3 className="font-medium text-gray-900">Monthly Stipend</h3>
-                                    <p className="text-gray-700">₹70,000 per month for first 2 years, ₹75,000 for remaining period</p>
-                                </div>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <div className="bg-blue-100 p-1 rounded-full mt-0.5">
-                                    <Star className="w-4 h-4 text-blue-600" />
-                                </div>
-                                <div>
-                                    <h3 className="font-medium text-gray-900">Research Grant</h3>
-                                    <p className="text-gray-700">₹2 lakhs per year for research contingency</p>
-                                </div>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <div className="bg-blue-100 p-1 rounded-full mt-0.5">
-                                    <Star className="w-4 h-4 text-blue-600" />
-                                </div>
-                                <div>
-                                    <h3 className="font-medium text-gray-900">Travel Support</h3>
-                                    <p className="text-gray-700">Up to ₹3 lakhs for international conference attendance</p>
-                                </div>
-                            </li>
-                        </ul>
+                        {scheme.Benefits ? (
+                            <ul className="space-y-3">
+                                {parseJsonField(scheme.Benefits).map((benefit, index) => (
+                                    <li key={index} className="flex items-start gap-3">
+                                        <div className="bg-blue-100 p-1 rounded-full mt-0.5">
+                                            <Star className="w-4 h-4 text-blue-600" />
+                                        </div>
+                                        <div>
+                                            <p className="text-gray-700">{benefit}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className="text-gray-500">No benefits information available.</p>
+                        )}
                     </div>
 
                     {/* Eligibility Section */}
                     <div id="eligibility" className="bg-white rounded-xl p-6 shadow-sm border">
                         <h2 className="text-xl font-semibold text-gray-900 mb-4">Eligibility</h2>
-                        <ol className="list-decimal pl-5 space-y-3 text-gray-700">
-                            <li>Indian nationals with a Master's degree in Science/Engineering/Technology</li>
-                            <li>Valid GATE/NET score or equivalent national level examination</li>
-                            <li>Registered for full-time PhD program at recognized Indian institution</li>
-                            <li>Age limit: Below 32 years at time of application (relaxation for SC/ST/OBC)</li>
-                            <li>Research proposal in emerging areas of science and technology</li>
-                        </ol>
+                        {scheme.Eligibility ? (
+                            <ol className="list-decimal pl-5 space-y-3 text-gray-700">
+                                {parseJsonField(scheme.Eligibility).map((requirement, index) => (
+                                    <li key={index}>{requirement}</li>
+                                ))}
+                            </ol>
+                        ) : (
+                            <p className="text-gray-500">No eligibility information available.</p>
+                        )}
                     </div>
 
                     {/* Application Process Section */}
                     <div id="application" className="bg-white rounded-xl p-6 shadow-sm border">
                         <h2 className="text-xl font-semibold text-gray-900 mb-4">Application Process</h2>
-                        <div className="space-y-4">
-                            <div>
-                                <h3 className="font-medium text-gray-900">Step 1: Online Application</h3>
-                                <p className="text-gray-700">
-                                    Submit the application form through the portal along with required documents.
-                                </p>
+                        {scheme["Application Process (Steps)"] ? (
+                            <div className="space-y-4">
+                                {parseJsonField(scheme["Application Process (Steps)"]).map((step, index) => (
+                                    <div key={index}>
+                                        <h3 className="font-medium text-gray-900">Step {index + 1}</h3>
+                                        <p className="text-gray-700">{step}</p>
+                                    </div>
+                                ))}
+                                <button className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#0271BC] text-white px-6 py-2 font-medium">
+                                    Apply Now
+                                    <ArrowUpRight className="w-4 h-4" />
+                                </button>
                             </div>
-                            <div>
-                                <h3 className="font-medium text-gray-900">Step 2: Review Process</h3>
-                                <p className="text-gray-700">
-                                    Applications are reviewed by an expert committee based on academic merit and research potential.
-                                </p>
-                            </div>
-                            <div>
-                                <h3 className="font-medium text-gray-900">Step 3: Interview</h3>
-                                <p className="text-gray-700">
-                                    Shortlisted candidates will be called for an interview (may be conducted online).
-                                </p>
-                            </div>
-                            <div>
-                                <h3 className="font-medium text-gray-900">Step 4: Final Selection</h3>
-                                <p className="text-gray-700">
-                                    Selected candidates will receive offer letters via email and portal notification.
-                                </p>
-                            </div>
-                            <button className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#0271BC] text-white px-6 py-2 font-medium">
-                                Apply Now
-                                <ArrowUpRight className="w-4 h-4" />
-                            </button>
-                        </div>
+                        ) : (
+                            <p className="text-gray-500">No application process information available.</p>
+                        )}
                     </div>
 
                     {/* Documents Required Section */}
                     <div id="documents" className="bg-white rounded-xl p-6 shadow-sm border">
                         <h2 className="text-xl font-semibold text-gray-900 mb-4">Documents Required</h2>
-                        <ol className="list-decimal pl-5 space-y-3 text-gray-700">
-                            <li>Proof of PhD registration</li>
-                            <li>Detailed research proposal (max 5 pages)</li>
-                            <li>Curriculum Vitae</li>
-                            <li>Marksheets and degree certificates</li>
-                            <li>Valid GATE/NET scorecard</li>
-                            <li>Category certificate (if applicable)</li>
-                            <li>Letter of recommendation from PhD supervisor</li>
-                        </ol>
+                        {scheme["Documents Required"] ? (
+                            <ol className="list-decimal pl-5 space-y-3 text-gray-700">
+                                {parseJsonField(scheme["Documents Required"]).map((document, index) => (
+                                    <li key={index}>{document}</li>
+                                ))}
+                            </ol>
+                        ) : (
+                            <p className="text-gray-500">No document requirements available.</p>
+                        )}
                     </div>
 
                     {/* FAQ Section */}
@@ -279,20 +393,24 @@ export default function SchemeDetails() {
                     {/* Sources & References Section */}
                     <div id="sources" className="bg-white rounded-xl p-6 shadow-sm border">
                         <h2 className="text-xl font-semibold text-gray-900 mb-4">Sources & References</h2>
-                        <div className="space-y-3">
-                            <a href="#" className="flex items-center gap-2 text-[#0271BC] hover:underline">
-                                <ArrowUpRight className="w-4 h-4" />
-                                Official Scheme Document (PDF)
-                            </a>
-                            <a href="#" className="flex items-center gap-2 text-[#0271BC] hover:underline">
-                                <ArrowUpRight className="w-4 h-4" />
-                                Ministry Website
-                            </a>
-                            <a href="#" className="flex items-center gap-2 text-[#0271BC] hover:underline">
-                                <ArrowUpRight className="w-4 h-4" />
-                                Frequently Asked Questions (FAQ)
-                            </a>
-                        </div>
+                        {scheme["Sources & References"] ? (
+                            <div className="space-y-3">
+                                {parseJsonField(scheme["Sources & References"]).map((source, index) => (
+                                    <a 
+                                        key={index}
+                                        href={source} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 text-[#0271BC] hover:underline"
+                                    >
+                                        <ArrowUpRight className="w-4 h-4" />
+                                        {source}
+                                    </a>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-gray-500">No sources and references available.</p>
+                        )}
                     </div>
 
                     {/* Feedback Section */}

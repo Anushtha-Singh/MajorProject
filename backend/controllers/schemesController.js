@@ -12,8 +12,16 @@ exports.getAllSchemes = async (req, res) => {
   try {
     const { page, limit } = validatePagination(req.query.page, req.query.limit);
     
-    const schemes = await schemeService.getAllSchemes(page, limit);
-    const totalCount = await schemeService.getTotalCount();
+    // Extract filter parameters
+    const filters = {
+      category: req.query.category,
+      level: req.query.level,
+      benefitType: req.query.benefitType,
+      search: req.query.search || req.query.q
+    };
+    
+    const schemes = await schemeService.getAllSchemes(page, limit, filters);
+    const totalCount = await schemeService.getTotalCount(filters);
     
     res.json({
       page,
@@ -76,9 +84,11 @@ exports.searchSchemes = async (req, res) => {
 exports.getSummary = async (req, res) => {
   try {
     const totalCount = await schemeService.getTotalCount();
+    const categoryCounts = await schemeService.getCategoryCounts();
     
     res.json({
       totalSchemes: totalCount,
+      categoryCounts: categoryCounts,
       message: 'Government schemes summary',
       endpoints: {
         getAll: '/api/',

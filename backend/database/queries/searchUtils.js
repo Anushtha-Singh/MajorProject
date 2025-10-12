@@ -1,6 +1,6 @@
 // Utility functions for building search queries with multiple keywords
 
-function buildSearchQuery(searchTerms, tableAlias = 'government_schemes') {
+function buildSearchQuery(searchTerms, tableAlias = 'gs') {
   let whereClause = '';
   let params = [];
   
@@ -8,8 +8,14 @@ function buildSearchQuery(searchTerms, tableAlias = 'government_schemes') {
     const conditions = [];
     searchTerms.forEach((term, index) => {
       const paramIndex = index + 1;
-      // Match anywhere in the row JSON to avoid column-name mismatches across environments
-      conditions.push(`(to_jsonb(${tableAlias})::text ILIKE $${paramIndex})`);
+      // Search in specific columns for better performance
+      conditions.push(`(
+        ${tableAlias}."Scheme Title" ILIKE $${paramIndex} OR 
+        ${tableAlias}."Details" ILIKE $${paramIndex} OR 
+        ${tableAlias}."Benefits" ILIKE $${paramIndex} OR 
+        ${tableAlias}."Eligibility" ILIKE $${paramIndex} OR 
+        ${tableAlias}."Tags" ILIKE $${paramIndex}
+      )`);
       params.push(`%${term}%`);
     });
     whereClause = `WHERE ${conditions.join(' OR ')}`;
