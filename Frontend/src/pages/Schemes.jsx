@@ -17,7 +17,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 // API functions - using backend directly
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = 'https://yojana-saathi-backend.onrender.com/api';
 
 const fetchSchemes = async (page = 1, limit = 20, filters = {}) => {
   try {
