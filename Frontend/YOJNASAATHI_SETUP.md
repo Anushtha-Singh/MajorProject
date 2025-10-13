@@ -39,15 +39,27 @@ cd Frontend
 npm install
 ```
 
-### 2. Gemini API Setup (Optional)
+### 2. Gemini API Setup (Required for full functionality)
 The chatbot works with mock responses if no API key is provided.
 
 To enable full Gemini AI functionality:
 1. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
 2. Create a `.env` file in the Frontend directory:
 ```bash
+# Create the .env file
+touch .env
+```
+
+3. Add your API key to the `.env` file:
+```bash
 VITE_GEMINI_API_KEY=your_actual_api_key_here
 ```
+
+**Important Security Notes**:
+- ✅ **DO**: Use `.env` file for API keys
+- ❌ **DON'T**: Hardcode API keys in source code
+- ❌ **DON'T**: Commit `.env` file to version control
+- ✅ **DO**: Add `.env` to `.gitignore`
 
 **Note**: In Vite, environment variables must be prefixed with `VITE_` to be accessible in the browser.
 
