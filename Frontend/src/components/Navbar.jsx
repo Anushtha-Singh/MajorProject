@@ -1,5 +1,6 @@
 // src/components/Navbar.jsx
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Search,
   ChevronDown,
@@ -55,12 +56,12 @@ export default function Navbar({ lang = "en", setLang = () => {} }) {
     <header className="bg-white/90 backdrop-blur sticky top-0 z-40 border-b">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <Sparkles className="w-6 h-6 text-[#0271BC]" />
           <span className="text-xl md:text-2xl font-bold text-[#0271BC]">
             {t.brand}
           </span>
-        </div>
+        </Link>
 
         {/* Desktop Search */}
         <div className="flex-1 hidden md:flex">

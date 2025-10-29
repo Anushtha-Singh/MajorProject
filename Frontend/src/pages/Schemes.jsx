@@ -2,20 +2,17 @@ import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Search,
-  ChevronDown,
-  ChevronRight,
-  Globe,
-  LogIn,
-  Star,
   Filter,
   Check,
   Tag,
   HelpCircle,
-  Sparkles,
   ArrowUpRight,
   Languages,
   SlidersHorizontal,
+  ChevronDown,
+  ChevronRight,
 } from "lucide-react";
+import Navbar from "../components/Navbar";
 // API functions - using backend directly
 const API_BASE_URL = 'https://yojana-saathi-backend.onrender.com/api';
 
@@ -266,10 +263,11 @@ export default function App() {
   /* ------------------------------ UI state ------------------------------- */
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState({
-    category: true,
-    level: true,
-    benefit: true,
+    category: false,
+    level: false,
+    benefit: false,
   });
+  const [showFilters, setShowFilters] = useState(false); // For mobile filter panel
   const [selCategories, setSelCategories] = useState(new Set()); // keys from CATEGORY_DEFS
   const [selLevels, setSelLevels] = useState(new Set()); // 'state' | 'central'
   const [selBenefitTypes, setSelBenefitTypes] = useState(new Set()); // 'cash'|'composite'|'other'
@@ -447,128 +445,142 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#faf7f2] text-gray-900">
       {/* NAVBAR */}
-      <header className="bg-white/90 backdrop-blur sticky top-0 z-40 border-b">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-6 h-6 text-[#0271BC]" />
-            <span className="text-xl md:text-2xl font-bold text-[#0271BC]">
-              {t.brand}
+      <Navbar lang={lang} setLang={setLang} />
+
+      {/* Mobile Filter Button */}
+      <div className="lg:hidden sticky top-0 z-30 bg-[#faf7f2] border-b px-4 py-2">
+        <button
+          onClick={() => setShowFilters(true)}
+          className="w-full flex items-center justify-center gap-2 rounded-full bg-[#0271BC] text-white px-4 py-2"
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          <span>{t.sidebarTitle}</span>
+          {anyFiltersApplied && (
+            <span className="flex items-center justify-center w-5 h-5 text-xs bg-white text-[#0271BC] rounded-full">
+              {(selCategories.size + selLevels.size + selBenefitTypes.size)}
             </span>
-          </div>
+          )}
+        </button>
+      </div>
 
-          {/* inline search in navbar */}
-          <div className="flex-1 hidden md:flex">
-            <form
-              className="w-full max-w-xl ml-6 flex items-center rounded-full bg-gray-100 px-3 py-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                loadSchemes();
-              }}
-            >
-              <Search className="w-5 h-5 text-gray-500" />
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={t.searchPlaceholder}
-                className="bg-transparent px-3 py-1 outline-none w-full"
-              />
+      {/* Mobile Filter Panel */}
+      <div className={`fixed inset-0 bg-black/50 z-50 transition-opacity lg:hidden ${showFilters ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className={`absolute inset-y-0 left-0 w-[85%] max-w-md bg-[#faf7f2] transform transition-transform ${showFilters ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="h-full overflow-auto">
+            <div className="sticky top-0 bg-[#faf7f2] border-b p-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-[#0271BC]" />
+                <h2 className="font-semibold">{t.sidebarTitle}</h2>
+              </div>
               <button
-                type="submit"
-                disabled={loading}
-                className="ml-2 rounded-full bg-[#0271BC] text-white text-sm px-4 py-1.5 disabled:opacity-50"
+                onClick={() => setShowFilters(false)}
+                className="p-2 hover:bg-gray-100 rounded-full"
               >
-                {loading ? '...' : t.search}
+                ✕
               </button>
-            </form>
-          </div>
-
-          {/* actions */}
-          <div className="ml-auto flex items-center gap-2">
-            <button className="hidden sm:inline-flex items-center gap-2 rounded-full bg-[#0271BC] text-white text-sm px-4 py-2">
-              <LogIn className="w-4 h-4" />
-              {t.signIn}
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
-
-            {/* language switcher (toggle + click-away) */}
-            <div className="relative" ref={langRef}>
-              <button
-                className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-2"
-                onClick={() => setLangOpen((v) => !v)}
-                aria-haspopup="listbox"
-                aria-expanded={langOpen}
-              >
-                <Globe className="w-4 h-4" />
-                <span className="text-sm">{t.language}</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              {langOpen && (
-                <div
-                  className="absolute right-0 mt-2 w-36 bg-white border rounded-xl shadow-sm overflow-hidden"
-                  role="listbox"
-                >
-                  {[
-                    { key: "en", label: "English" },
-                    { key: "hi", label: "हिंदी" },
-                  ].map((opt) => (
-                    <button
-                      key={opt.key}
-                      className={[
-                        "w-full text-left px-3 py-2 text-sm hover:bg-gray-50",
-                        lang === opt.key ? "text-[#0271BC]" : "",
-                      ].join(" ")}
-                      onClick={() => {
-                        setLang(opt.key);
-                        setLangOpen(false);
-                      }}
-                      role="option"
-                      aria-selected={lang === opt.key}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
+            <div className="p-4 space-y-4">
+              {/* Filter content */}
+              <button
+                className="text-sm text-[#0271BC] hover:underline"
+                onClick={() => {
+                  resetFilters();
+                  setShowFilters(false);
+                }}
+              >
+                {t.reset}
+              </button>
+              {/* Rest of the filter content */}
+              <div className="space-y-4">
+                {/* Category */}
+                <Section
+                  title={t.schemeCategory}
+                  isOpen={open.category}
+                  onToggle={() => setOpen((o) => ({ ...o, category: !o.category }))}
+                >
+                  <div className="max-h-64 overflow-auto pr-1">
+                    {CATEGORY_DEFS.map((c) => (
+                      <CheckboxRow
+                        key={c.key}
+                        label={c.name}
+                        count={c.count}
+                        checked={selCategories.has(c.key)}
+                        onChange={() => setSelCategories((s) => toggleSet(s, c.key))}
+                      />
+                    ))}
+                  </div>
+                </Section>
 
-            <button className="hidden sm:inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-2">
-              <Star className="w-4 h-4" />
-              <span className="text-sm">Saved</span>
-            </button>
+                {/* Level */}
+                <Section
+                  title={t.level}
+                  isOpen={open.level}
+                  onToggle={() => setOpen((o) => ({ ...o, level: !o.level }))}
+                >
+                  <div className="space-y-1">
+                    {[
+                      { key: "state", label: t.state },
+                      { key: "central", label: t.central },
+                    ].map((opt) => (
+                      <CheckboxRow
+                        key={opt.key}
+                        label={opt.label}
+                        checked={selLevels.has(opt.key)}
+                        onChange={() => setSelLevels((s) => toggleSet(s, opt.key))}
+                      />
+                    ))}
+                  </div>
+                </Section>
+
+                {/* Benefit Type */}
+                <Section
+                  title={t.benefitType}
+                  isOpen={open.benefit}
+                  onToggle={() => setOpen((o) => ({ ...o, benefit: !o.benefit }))}
+                >
+                  <div className="space-y-1">
+                    {[
+                      { key: "cash", label: t.cash },
+                      { key: "composite", label: t.composite },
+                      { key: "other", label: t.other },
+                    ].map((opt) => (
+                      <CheckboxRow
+                        key={opt.key}
+                        label={opt.label}
+                        checked={selBenefitTypes.has(opt.key)}
+                        onChange={() => setSelBenefitTypes((s) => toggleSet(s, opt.key))}
+                      />
+                    ))}
+                  </div>
+                </Section>
+
+                {/* Mobile Chatbot CTA */}
+                <div className="rounded-2xl p-4 bg-[#1E90FF] text-white space-y-2 shadow">
+                  <div className="flex items-center gap-2">
+                    <Languages className="w-5 h-5" />
+                    <h3 className="font-semibold">Multilingual Assistant</h3>
+                  </div>
+                  <p className="text-sm opacity-90">
+                    Get guidance in your regional language. Ask anything about
+                    eligibility, documents, or how to apply.
+                  </p>
+                  <button 
+                    onClick={() => setShowFilters(false)}
+                    className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#1E90FF] px-4 py-2">
+                    <HelpCircle className="w-4 h-4" />
+                    {t.chatbot}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* mobile search */}
-        <div className="px-4 pb-3 md:hidden">
-          <form
-            className="flex items-center rounded-full bg-gray-100 px-3 py-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              loadSchemes();
-            }}
-          >
-            <Search className="w-5 h-5 text-gray-500" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={t.searchPlaceholder}
-              className="bg-transparent px-3 py-1 outline-none w-full"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="ml-2 rounded-full bg-[#0271BC] text-white text-sm px-4 py-1.5 disabled:opacity-50"
-            >
-              {loading ? '...' : t.search}
-            </button>
-          </form>
-        </div>
-      </header>
+      </div>
 
       {/* PAGE CONTENT */}
       <main className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* LEFT SIDEBAR: FILTERS */}
-        <aside className="lg:col-span-4 xl:col-span-3 space-y-4">
+        {/* LEFT SIDEBAR: FILTERS - Desktop */}
+        <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <SlidersHorizontal className="w-4 h-4 text-[#0271BC]" />

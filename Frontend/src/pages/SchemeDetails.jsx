@@ -205,9 +205,46 @@ export default function SchemeDetails() {
             {/* Use the Navbar component */}
             <Navbar />
 
+            {/* Mobile Back Button */}
+            <div className="lg:hidden px-4 py-2 border-b bg-white sticky top-0 z-30">
+                <button 
+                    onClick={() => navigate('/Schemes')}
+                    className="flex items-center gap-2 text-[#0271BC] hover:underline"
+                >
+                    <ChevronLeft className="w-5 h-5" />
+                    Back to schemes
+                </button>
+            </div>
+
+            {/* Mobile Section Navigation */}
+            <div className="lg:hidden px-4 overflow-x-auto sticky top-12 z-30 bg-white border-b">
+                <div className="flex space-x-4 py-2">
+                    {[
+                        { id: "details", label: "Details" },
+                        { id: "benefits", label: "Benefits" },
+                        { id: "eligibility", label: "Eligibility" },
+                        { id: "application", label: "Application" },
+                        { id: "documents", label: "Documents" },
+                        { id: "faq", label: "FAQ" },
+                    ].map((item) => (
+                        <button
+                            key={item.id}
+                            onClick={() => scrollToSection(item.id)}
+                            className={`whitespace-nowrap px-3 py-1 rounded-full text-sm ${
+                                activeSection === item.id 
+                                ? "bg-[#0271BC] text-white" 
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
+                        >
+                            {item.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             <main className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-                {/* Left Navigation Sidebar */}
-                <aside className="lg:col-span-3 xl:col-span-2 space-y-4 sticky top-20 self-start">
+                {/* Left Navigation Sidebar - Desktop Only */}
+                <aside className="hidden lg:block lg:col-span-3 xl:col-span-2 space-y-4 sticky top-20 self-start h-[calc(100vh-5rem)] overflow-y-auto">
                     <button 
                         onClick={() => navigate('/Schemes')}
                         className="flex items-center gap-2 text-[#0271BC] hover:underline"
@@ -240,7 +277,7 @@ export default function SchemeDetails() {
                 </aside>
 
                 {/* Main Content */}
-                <section className="lg:col-span-6 xl:col-span-8 space-y-8" ref={contentRef}>
+                <section className="lg:col-span-6 xl:col-span-8 space-y-8 pb-20 lg:pb-0" ref={contentRef}>
                     {/* Scheme Header */}
                     <div className="bg-white rounded-xl p-6 shadow-sm border">
                         <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
@@ -429,46 +466,65 @@ export default function SchemeDetails() {
                     </div>
                 </section>
 
-                {/* Right Sidebar - Moved outside the main content section */}
-                <aside className="lg:col-span-3 space-y-6 sticky top-20 self-start h-[calc(100vh-5rem)] overflow-y-auto">
-                    {/* News & Updates */}
-                    <div className="bg-white rounded-xl p-5 shadow-sm border">
-                        <h3 className="font-semibold text-gray-900 mb-3">News & Updates</h3>
-                        <div className="space-y-4">
-                            <div className="p-3 bg-blue-50 rounded-lg">
-                                <p className="text-sm font-medium text-blue-800">Application deadline extended</p>
-                                <p className="text-xs text-gray-500 mt-1">New deadline: 30 November 2023</p>
-                            </div>
-                            <div className="p-3 bg-blue-50 rounded-lg">
-                                <p className="text-sm font-medium text-blue-800">New participating institutions added</p>
-                                <p className="text-xs text-gray-500 mt-1">5 more IITs included in the program</p>
-                            </div>
-                            <div className="p-3 bg-blue-50 rounded-lg">
-                                <p className="text-sm font-medium text-blue-800">Webinar announcement</p>
-                                <p className="text-xs text-gray-500 mt-1">Join our Q&A session on 15 October</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Share Section */}
-                    <div className="bg-white rounded-xl p-5 shadow-sm border">
-                        <h3 className="font-semibold text-gray-900 mb-3">Share</h3>
+                {/* Mobile Share Bar - Fixed at bottom */}
+                <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t px-4 py-3 z-40">
+                    <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
-                                <Mail className="w-5 h-5" />
-                            </button>
-                            <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
-                                <Facebook className="w-5 h-5" />
-                            </button>
-                            <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
-                                <Twitter className="w-5 h-5" />
-                            </button>
-                            <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
-                                <Linkedin className="w-5 h-5" />
-                            </button>
                             <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
                                 <Share2 className="w-5 h-5" />
                             </button>
+                            <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
+                                <Star className="w-5 h-5" />
+                            </button>
+                        </div>
+                        <button className="px-6 py-2 bg-[#0271BC] text-white rounded-full font-medium">
+                            Apply Now
+                        </button>
+                    </div>
+                </div>
+
+                {/* Right Sidebar - Desktop Only */}
+                <aside className="hidden lg:block lg:col-span-3 space-y-6">
+                    <div className="sticky top-20">
+                        {/* News & Updates */}
+                        <div className="bg-white rounded-xl p-5 shadow-sm border mb-6">
+                            <h3 className="font-semibold text-gray-900 mb-3">News & Updates</h3>
+                            <div className="space-y-4">
+                                <div className="p-3 bg-blue-50 rounded-lg">
+                                    <p className="text-sm font-medium text-blue-800">Application deadline extended</p>
+                                    <p className="text-xs text-gray-500 mt-1">New deadline: 30 November 2023</p>
+                                </div>
+                                <div className="p-3 bg-blue-50 rounded-lg">
+                                    <p className="text-sm font-medium text-blue-800">New participating institutions added</p>
+                                    <p className="text-xs text-gray-500 mt-1">5 more IITs included in the program</p>
+                                </div>
+                                <div className="p-3 bg-blue-50 rounded-lg">
+                                    <p className="text-sm font-medium text-blue-800">Webinar announcement</p>
+                                    <p className="text-xs text-gray-500 mt-1">Join our Q&A session on 15 October</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Share Section - Desktop */}
+                        <div className="bg-white rounded-xl p-5 shadow-sm border">
+                            <h3 className="font-semibold text-gray-900 mb-3">Share</h3>
+                            <div className="flex items-center gap-3">
+                                <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
+                                    <Mail className="w-5 h-5" />
+                                </button>
+                                <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
+                                    <Facebook className="w-5 h-5" />
+                                </button>
+                                <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
+                                    <Twitter className="w-5 h-5" />
+                                </button>
+                                <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
+                                    <Linkedin className="w-5 h-5" />
+                                </button>
+                                <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600">
+                                    <Share2 className="w-5 h-5" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </aside>
