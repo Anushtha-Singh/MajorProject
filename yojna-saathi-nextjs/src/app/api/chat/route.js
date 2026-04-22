@@ -2,6 +2,8 @@ import { streamText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 
+export const runtime = 'edge';
+
 const languageMap = {
   en: 'English', hi: 'Hindi (हिंदी)', ta: 'Tamil (தமிழ்)', te: 'Telugu (తెలుగు)', 
   bn: 'Bengali (বাংলা)', gu: 'Gujarati (ગુજરાતી)', pa: 'Punjabi (ਪੰਜਾਬੀ)', 

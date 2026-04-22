@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 
+export const runtime = 'edge';
+
 // GET /api/schemes/[id] — Get scheme by ID
 export async function GET(request, { params }) {
   try {

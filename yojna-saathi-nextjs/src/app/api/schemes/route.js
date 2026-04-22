@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getDb, buildSearchConditions, normalizeSearchTerms } from '@/lib/db';
 
+export const runtime = 'edge';
+
 // GET /api/schemes — List schemes with filters & pagination
 export async function GET(request) {
   try {
