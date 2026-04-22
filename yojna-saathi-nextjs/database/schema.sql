@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS government_schemes (
   "Benefit Type" TEXT,
   "Department/State" TEXT,
   "Sources & References" TEXT,
+  "Date of Launch" TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

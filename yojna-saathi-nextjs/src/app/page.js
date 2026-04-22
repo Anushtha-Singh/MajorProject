@@ -53,20 +53,22 @@ export default function Home() {
   })[lang], [lang]);
 
   const stats = [
-    { v: "3500+", l: t.stat1, icon: <Shield className="w-5 h-5 md:w-6 md:h-6" />, c: "text-[#0271BC]", bg: "bg-blue-50" },
-    { v: "1200+", l: t.stat2, icon: <Landmark className="w-5 h-5 md:w-6 md:h-6" />, c: "text-emerald-600", bg: "bg-emerald-50" },
-    { v: "2300+", l: t.stat3, icon: <Users className="w-5 h-5 md:w-6 md:h-6" />, c: "text-amber-600", bg: "bg-amber-50" },
+    { v: "5400+", l: t.stat1, icon: <Shield className="w-5 h-5 md:w-6 md:h-6" />, c: "text-[#0271BC]", bg: "bg-blue-50" },
+    { v: "0", l: t.stat2, icon: <Landmark className="w-5 h-5 md:w-6 md:h-6" />, c: "text-emerald-600", bg: "bg-emerald-50" },
+    { v: "5400+", l: t.stat3, icon: <Users className="w-5 h-5 md:w-6 md:h-6" />, c: "text-amber-600", bg: "bg-amber-50" },
   ];
 
   const cats = [
-    { n: lang === 'en' ? "Agriculture" : "कृषि", c: 611, i: "🌾", s: lang === 'en' ? "Farming, Subsidies" : "खेती, सब्सिडी", k: "agri" },
-    { n: lang === 'en' ? "Education" : "शिक्षा", c: 937, i: "📚", s: lang === 'en' ? "Scholarships, Skills" : "छात्रवृत्ति", k: "education" },
-    { n: lang === 'en' ? "Health" : "स्वास्थ्य", c: 219, i: "🏥", s: lang === 'en' ? "Insurance, Treatment" : "बीमा, उपचार", k: "health" },
-    { n: lang === 'en' ? "Business" : "व्यापार", c: 585, i: "💼", s: lang === 'en' ? "Loans, MSME" : "ऋण, एमएसएमई", k: "business" },
-    { n: lang === 'en' ? "Housing" : "आवास", c: 100, i: "🏠", s: lang === 'en' ? "Low-cost Homes" : "कम लागत", k: "housing" },
-    { n: lang === 'en' ? "Employment" : "रोजगार", c: 313, i: "🔧", s: lang === 'en' ? "Jobs, Training" : "नौकरी", k: "skills" },
-    { n: lang === 'en' ? "Banking" : "बैंकिंग", c: 273, i: "🏦", s: lang === 'en' ? "Insurance, Savings" : "बीमा, बचत", k: "bfsi" },
-    { n: lang === 'en' ? "Science & IT" : "विज्ञान", c: 71, i: "💻", s: lang === 'en' ? "Research" : "अनुसंधान", k: "science" },
+    { n: lang === 'en' ? "Education" : "शिक्षा", c: 966, i: "📚", s: lang === 'en' ? "Scholarships, Skills" : "छात्रवृत्ति", k: "education" },
+    { n: lang === 'en' ? "Social Welfare" : "समाज कल्याण", c: 4208, i: "🤝", s: lang === 'en' ? "Empowerment, Pension" : "सशक्तिकरण, पेंशन", k: "social" },
+    { n: lang === 'en' ? "Health" : "स्वास्थ्य", c: 137, i: "🏥", s: lang === 'en' ? "Insurance, Treatment" : "बीमा, उपचार", k: "health" },
+    { n: lang === 'en' ? "Women & Child" : "महिला एवं बाल", c: 161, i: "👩", s: lang === 'en' ? "Maternity, Nutrition" : "मातृत्व, पोषण", k: "women" },
+    { n: lang === 'en' ? "Agriculture" : "कृषि", c: 245, i: "🌾", s: lang === 'en' ? "Farming, Subsidies" : "खेती, सब्सिडी", k: "agri" },
+    { n: lang === 'en' ? "Business" : "व्यापार", c: 180, i: "💼", s: lang === 'en' ? "Loans, MSME" : "ऋण, एमएसएमई", k: "business" },
+    { n: lang === 'en' ? "Housing" : "आवास", c: 95, i: "🏠", s: lang === 'en' ? "Low-cost Homes" : "कम लागत", k: "housing" },
+    { n: lang === 'en' ? "Employment" : "रोजगार", c: 310, i: "🔧", s: lang === 'en' ? "Jobs, Training" : "नौकरी", k: "skills" },
+    { n: lang === 'en' ? "Banking" : "बैंकिंग", c: 140, i: "🏦", s: lang === 'en' ? "Insurance, Savings" : "बीमा, बचत", k: "bfsi" },
+    { n: lang === 'en' ? "Science & IT" : "विज्ञान", c: 65, i: "💻", s: lang === 'en' ? "Research" : "अनुसंधान", k: "science" },
   ];
 
   const faqs = [

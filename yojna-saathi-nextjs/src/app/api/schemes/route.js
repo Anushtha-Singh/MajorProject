@@ -24,17 +24,17 @@ export async function GET(request) {
     // Search filter
     if (search) {
       const searchTerms = normalizeSearchTerms(search);
-      const { conditions, params: searchParams } = buildSearchConditions(searchTerms);
+      const { conditions, params: sParams } = buildSearchConditions(searchTerms);
       if (conditions.length > 0) {
         whereConditions.push(`(${conditions.join(' OR ')})`);
-        params = [...params, ...searchParams];
+        params = [...params, ...sParams];
       }
     }
     
-    // Category filter
+    // Category filter (Searches in both Category column and Tags)
     if (category) {
-      params.push(category);
-      whereConditions.push(`"Scheme Category" = $${params.length}`);
+      params.push(`%${category.toLowerCase()}%`);
+      whereConditions.push(`(LOWER("Scheme Category") LIKE $${params.length} OR LOWER("Tags") LIKE $${params.length})`);
     }
     
     // Level filter

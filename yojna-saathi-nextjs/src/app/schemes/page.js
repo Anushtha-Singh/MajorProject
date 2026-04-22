@@ -8,16 +8,16 @@ import Footer from "@/components/Footer";
 import YojnaSaathi from "@/components/YojnaSaathi";
 
 const CATS = [
-  { key: "agri", name: "Agriculture, Rural & Environment" },
-  { key: "bfsi", name: "Banking, Financial Services & Insurance" },
-  { key: "business", name: "Business & Entrepreneurship" },
-  { key: "education", name: "Education & Learning" },
-  { key: "health", name: "Health & Wellness" },
-  { key: "housing", name: "Housing & Shelter" },
-  { key: "science", name: "Science, IT & Communications" },
-  { key: "skills", name: "Skills & Employment" },
   { key: "social", name: "Social Welfare & Empowerment" },
+  { key: "education", name: "Education & Learning" },
   { key: "women", name: "Women & Child" },
+  { key: "health", name: "Health & Wellness" },
+  { key: "agri", name: "Agriculture" },
+  { key: "business", name: "Business & Entrepreneurship" },
+  { key: "skills", name: "Skills & Employment" },
+  { key: "housing", name: "Housing" },
+  { key: "bfsi", name: "Banking & Finance" },
+  { key: "science", name: "Science & IT" },
 ];
 
 const parseJson = (f) => { if (!f) return []; if (Array.isArray(f)) return f; try { return JSON.parse(f); } catch { const m = []; const p = /'([^']*(?:''[^']*)*)'/g; let x; while ((x = p.exec(f)) !== null) m.push(x[1].replace(/''/g, "'")); return m.length > 0 ? m : [f]; } };
@@ -45,6 +45,9 @@ export default function SchemesPage() {
     const catFromUrl = searchParams.get('cat');
     if (catFromUrl && CATS.find(c => c.key === catFromUrl)) {
       setSelCat(catFromUrl);
+      setQuery(""); 
+      setSelLevel("");
+      setSelBenefit("");
     }
   }, [searchParams]);
 
@@ -64,6 +67,7 @@ export default function SchemesPage() {
     } catch (e) { setError(e.message); } finally { setLoading(false); }
   };
 
+  useEffect(() => { setPage(1); }, [selCat, selLevel, selBenefit]);
   useEffect(() => { load(page); }, [dq, selCat, selLevel, selBenefit, page]);
 
   const reset = () => { setSelCat(""); setSelLevel(""); setSelBenefit(""); setQuery(""); setPage(1); };

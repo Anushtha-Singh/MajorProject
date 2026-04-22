@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { ChevronLeft, ChevronDown, ArrowUpRight, Star, BookOpen, FileText, ClipboardList, Share2, Loader2, ExternalLink, Check, Bot } from "lucide-react";
+import { ChevronLeft, ChevronDown, ArrowUpRight, Star, BookOpen, FileText, ClipboardList, Share2, Loader2, ExternalLink, Check, Bot, Calendar } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import YojnaSaathi from "@/components/YojnaSaathi";
@@ -98,6 +98,7 @@ export default function SchemeDetailsPage() {
   const steps = parseListContent(scheme["Application Process (Steps)"]);
   const docs = parseListContent(scheme["Documents Required"]);
   const sources = parseListContent(scheme["Sources & References"]);
+  const officialUrl = sources.find(s => /^https?:\/\//.test(s) && !s.includes('myscheme.gov.in')) || scheme.URL;
 
   const shareScheme = async () => {
     const url = window.location.href;
@@ -129,6 +130,11 @@ export default function SchemeDetailsPage() {
           <div className="bg-white/80 border border-black/5 rounded-2xl p-5 md:p-8 shadow-sm">
             <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight md:leading-[1.2]">{scheme["Scheme Title"] || "Untitled"}</h1>
             <p className="text-sm md:text-base font-bold text-gray-500 mt-2">{scheme["Department/State"] || ""}</p>
+            {scheme["Date of Launch"] && (
+              <p className="flex items-center gap-1.5 text-sm md:text-base font-bold text-gray-500 mt-1.5">
+                <Calendar className="w-4 h-4 text-gray-400" /> Launched: {scheme["Date of Launch"]}
+              </p>
+            )}
             <div className="flex flex-wrap gap-2 mt-4 md:mt-5">
               {tags.slice(0, 6).map((t, i) => <span key={i} className="inline-flex items-center text-xs px-3 py-1 rounded-full bg-blue-50 text-[#0271BC] border border-blue-100 font-bold">{t}</span>)}
             </div>
@@ -142,8 +148,8 @@ export default function SchemeDetailsPage() {
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0271BC] to-[#1E90FF] text-white px-6 py-3 rounded-full text-sm font-bold shadow-sm hover:shadow-md transition-all">
                 <Bot className="w-4 h-4" /> Check Eligibility with AI
               </button>
-              {scheme.URL && (
-                <a href={scheme.URL} target="_blank" rel="noopener noreferrer" 
+              {officialUrl && (
+                <a href={officialUrl} target="_blank" rel="noopener noreferrer" 
                   className="inline-flex items-center gap-2 bg-white text-[#0271BC] border-2 border-gray-100 px-6 py-3 rounded-full text-sm font-bold shadow-sm hover:border-[#0271BC]/30 hover:bg-blue-50/50 transition-all">
                   <ExternalLink className="w-4 h-4" />Official Site
                 </a>

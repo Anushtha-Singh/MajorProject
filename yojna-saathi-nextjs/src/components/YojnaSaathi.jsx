@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { MessageCircle, X, Mic, MicOff, Volume2, VolumeX, Send, Bot, Loader2, Globe, Copy, Check, RotateCcw, ArrowDown, RefreshCw } from 'lucide-react';
+import { MessageCircle, X, Mic, MicOff, Volume2, VolumeX, Send, Bot, Loader2, Globe, Copy, Check, RotateCcw, ArrowDown, RefreshCw, ChevronLeft } from 'lucide-react';
 import { languagePatterns, languageNames, greetings } from '@/data/schemesData';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -319,7 +319,12 @@ Task: You are an Eligibility Checker. Ask the user for their age, location, occu
       {/* Header */}
       <div className="shrink-0 flex items-center justify-between px-4 py-3 sm:py-3.5 bg-gradient-to-r from-[#0271BC] to-[#1E90FF] text-white shadow-sm z-10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+          {isFullPage && onToggleFullPage && (
+            <button onClick={onToggleFullPage} className="p-2 -ml-2 rounded-xl hover:bg-white/20 transition-colors shrink-0" title="Back">
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+          )}
+          <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shrink-0">
             <Bot className="w-6 h-6" />
           </div>
           <div>
