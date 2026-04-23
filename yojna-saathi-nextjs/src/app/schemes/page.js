@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, ChevronDown, ChevronRight, Loader2, ArrowRight, Tag, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -22,7 +22,7 @@ const CATS = [
 
 const parseJson = (f) => { if (!f) return []; if (Array.isArray(f)) return f; try { return JSON.parse(f); } catch { const m = []; const p = /'([^']*(?:''[^']*)*)'/g; let x; while ((x = p.exec(f)) !== null) m.push(x[1].replace(/''/g, "'")); return m.length > 0 ? m : [f]; } };
 
-export default function SchemesPage() {
+function SchemesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [lang, setLang] = useState("en");
@@ -225,3 +225,12 @@ export default function SchemesPage() {
     </div>
   );
 }
+
+export default function SchemesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#faf7f2]"><Loader2 className="w-8 h-8 text-[#0271BC] animate-spin" /></div>}>
+      <SchemesContent />
+    </Suspense>
+  );
+}
+
