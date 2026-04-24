@@ -88,27 +88,38 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <Navbar lang={lang} setLang={setLang} />
 
-      <main className="flex-1 mesh-bg">
+      <main className="flex-1 bg-white relative overflow-hidden">
+        {/* Blurry blue ambient blobs */}
+        <div className="pointer-events-none select-none absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-[#3B82F6]/15 blur-[100px]" />
+          <div className="absolute top-[30%] -right-40 w-[420px] h-[420px] rounded-full bg-[#60A5FA]/12 blur-[120px]" />
+          <div className="absolute bottom-[10%] left-[20%] w-[380px] h-[380px] rounded-full bg-[#93C5FD]/10 blur-[100px]" />
+        </div>
         {/* ── HERO ── */}
-        <section className="px-4 sm:px-6 lg:px-8 pt-12 pb-16 md:pt-20 md:pb-24 max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-50/80 border border-blue-200 text-sm font-semibold text-[#0271BC] mb-6 shadow-sm">
-              <Sparkles className="w-4 h-4" />{t.badge}
+        <section className="relative w-full px-4 sm:px-6 lg:px-8 pt-12 pb-32 md:pt-16 md:pb-48 min-h-[75vh] flex flex-col justify-start overflow-hidden">
+          {/* Full Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img src="/banner4.png" alt="Hero Background" className="w-full h-full object-cover object-bottom" />
+          </div>
+
+          <div className="relative z-10 text-center max-w-4xl mx-auto animate-fade-in-up">
+            <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-white/90 backdrop-blur-xl text-sm font-bold text-[#0271BC] mb-8 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white/50 hover:scale-105 transition-transform cursor-pointer animate-float">
+              <Sparkles className="w-4 h-4 text-[#0271BC]" />{t.badge}
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-extrabold tracking-tight text-gray-900 leading-[1.15]">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter text-[#111827] leading-[1.15] drop-shadow-md">
               {t.h1a}{' '}
-              <span className="gradient-text">{t.h1b}</span>
+              <span className="text-[#0271BC]">{t.h1b}</span>
             </h1>
-            <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed">
+            <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-800 max-w-2xl mx-auto font-medium leading-relaxed font-semibold drop-shadow-sm">
               {t.desc}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 px-4 sm:px-0">
-              <Link href="/schemes" 
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#0271BC] to-[#1E90FF] text-white px-8 py-3.5 rounded-full font-bold shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all text-[15px]">
+              <Link href="/schemes"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0271BC] text-white px-8 py-3.5 rounded-full font-bold shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all text-[15px]">
                 {t.cta1}<ArrowRight className="w-4 h-4" />
               </Link>
-              <button onClick={() => router.push('/chat')} 
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-[#0271BC] border-2 border-gray-100 px-8 py-3.5 rounded-full font-bold shadow-sm hover:border-[#0271BC]/30 hover:bg-blue-50/50 transition-all text-[15px]">
+              <button onClick={() => router.push('/chat')}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/60 backdrop-blur-md text-[#0271BC] border border-white px-8 py-3.5 rounded-full font-bold shadow-sm hover:bg-white/80 transition-all text-[15px]">
                 <HelpCircle className="w-4 h-4" />{t.cta2}
               </button>
             </div>
@@ -116,10 +127,11 @@ export default function Home() {
         </section>
 
         {/* ── STATS ── */}
-        <section className="px-4 sm:px-6 lg:px-8 pb-16 max-w-6xl mx-auto">
+        <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-16 max-w-6xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
             {stats.map((s, i) => (
-              <div key={i} className="flex items-center gap-4 md:gap-5 p-5 md:p-6 rounded-2xl bg-white/80 border border-black/5 shadow-sm">
+              <div key={i} className="flex items-center gap-4 md:gap-5 p-5 md:p-6 rounded-2xl glass border border-white/50 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] group-hover:animate-[shimmer_1.5s_infinite] skew-x-12"></div>
                 <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center shrink-0 ${s.bg} ${s.c}`}>
                   {s.icon}
                 </div>
@@ -140,7 +152,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
             {cats.map((c, i) => (
-              <Link key={i} href={`/schemes?cat=${c.k}`} className="p-5 rounded-2xl bg-white/80 border border-black/5 cursor-pointer shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group block">
+              <Link key={i} href={`/schemes?cat=${c.k}`} className="p-5 rounded-2xl glass border border-white/50 cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgba(2,113,188,0.15)] hover:-translate-y-1 hover:border-[#0271BC]/30 transition-all duration-300 group block relative overflow-hidden">
                 <span className="text-3xl md:text-4xl block mb-3 md:mb-4 group-hover:scale-110 origin-left transition-transform duration-300">{c.i}</span>
                 <div className="text-base font-bold text-gray-900">{c.n}</div>
                 <div className="text-xs text-gray-400 font-medium mt-1">{c.s}</div>
@@ -154,7 +166,9 @@ export default function Home() {
 
         {/* ── HOW IT WORKS ── */}
         <section className="px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 max-w-6xl mx-auto">
-          <div className="rounded-3xl p-6 md:p-12 lg:p-16 bg-white/60 border border-black/5 shadow-sm">
+          <div className="rounded-[2.5rem] p-6 md:p-12 lg:p-16 glass border border-white/60 shadow-xl relative overflow-hidden">
+            {/* Background glowing blob */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#1E90FF]/20 rounded-full blur-[80px] animate-glow mix-blend-multiply"></div>
             <div className="text-center mb-10 md:mb-14">
               <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">{t.howTitle}</h2>
               <p className="text-gray-500 mt-3 font-medium">{t.howSub}</p>
@@ -162,11 +176,11 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 relative">
               {/* Connector line for desktop */}
               <div className="hidden md:block absolute top-[44px] left-[16%] right-[16%] h-0.5 bg-gray-200" />
-              
+
               {steps.map((s, i) => (
                 <div key={i} className="text-center relative z-10">
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-[#0271BC] to-[#1E90FF] text-white flex items-center justify-center mx-auto mb-4 text-sm font-bold shadow-md">{i + 1}</div>
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-blue-50 text-[#0271BC] flex items-center justify-center mx-auto mb-4 shadow-sm border border-blue-100">{s.icon}</div>
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-[#0271BC] to-[#1e40af] text-white flex items-center justify-center mx-auto mb-4 text-sm font-bold shadow-lg ring-4 ring-white/50">{i + 1}</div>
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white text-[#0271BC] flex items-center justify-center mx-auto mb-4 shadow-md border border-gray-100 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">{s.icon}</div>
                   <div className="text-lg font-bold text-gray-900">{s.title}</div>
                   <div className="text-sm text-gray-500 mt-2 max-w-[250px] mx-auto font-medium leading-relaxed">{s.desc}</div>
                 </div>
@@ -182,8 +196,8 @@ export default function Home() {
           </div>
           <div className="max-w-3xl mx-auto space-y-3">
             {faqs.map((f, i) => (
-              <div key={i} className="rounded-2xl bg-white/80 border border-black/5 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} 
+              <div key={i} className="rounded-2xl glass border border-white/50 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#0271BC]/20">
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full text-left px-5 md:px-6 py-4 md:py-5 flex items-center justify-between gap-4 text-[15px] font-bold text-gray-900 focus:outline-none">
                   <span>{f.q}</span>
                   <ChevronDown className={`w-5 h-5 text-gray-400 shrink-0 transition-transform duration-300 ${openFaq === i ? 'rotate-180 text-[#0271BC]' : ''}`} />
@@ -200,15 +214,15 @@ export default function Home() {
 
         {/* ── CTA ── */}
         <section className="px-4 sm:px-6 lg:px-8 pb-12 md:pb-16 max-w-6xl mx-auto">
-          <div className="rounded-[2rem] p-8 md:p-14 lg:p-20 text-center text-white bg-gradient-to-br from-[#0271BC] via-[#1E90FF] to-[#00BFFF] relative overflow-hidden shadow-xl">
+          <div className="rounded-[2rem] p-8 md:p-14 lg:p-20 text-center text-white bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] relative overflow-hidden shadow-xl">
             {/* Pattern overlay */}
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
-            
+
             <div className="relative z-10 max-w-2xl mx-auto">
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight">{t.ctaT}</h3>
               <p className="mt-4 text-white/90 text-sm md:text-base font-medium leading-relaxed">{t.ctaD}</p>
-              <button onClick={() => router.push('/chat')} 
-                className="mt-8 inline-flex items-center gap-2 bg-white text-[#0271BC] px-8 py-3.5 rounded-full text-[15px] font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+              <button onClick={() => router.push('/chat')}
+                className="mt-8 inline-flex items-center gap-2 bg-white text-[#2563EB] px-8 py-3.5 rounded-full text-[15px] font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                 <HelpCircle className="w-5 h-5" />{t.ctaBtn}
               </button>
             </div>

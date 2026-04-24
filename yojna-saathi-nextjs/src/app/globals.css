@@ -5,7 +5,7 @@
   html { scroll-behavior: smooth; }
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: #faf7f2;
+    background-color: #ffffff;
     color: #111827;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -14,19 +14,32 @@
 
 @layer utilities {
   .mesh-bg {
-    background-color: #faf7f2;
+    background-color: #ffffff;
     background-image:
       radial-gradient(at 0% 0%, rgba(2, 113, 188, 0.06) 0px, transparent 50%),
       radial-gradient(at 100% 0%, rgba(30, 144, 255, 0.05) 0px, transparent 50%),
       radial-gradient(at 50% 100%, rgba(0, 191, 255, 0.04) 0px, transparent 50%);
   }
+  .premium-banner-bg {
+    background: linear-gradient(-45deg, #0f172a, #1e40af, #0284c7, #082f49);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
   .glass {
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  }
+  .glass-dark {
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   .gradient-text {
-    background-image: linear-gradient(135deg, #0271BC, #1E90FF);
+    background-image: linear-gradient(135deg, #3B82F6, #60A5FA);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -46,6 +59,40 @@
 }
 .animate-pulse-dot {
   animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(2, 113, 188, 0.5); }
+  50% { box-shadow: 0 0 30px rgba(30, 144, 255, 0.8); }
+}
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(150%); }
 }
 
 /* Chat message slide-in animation */
