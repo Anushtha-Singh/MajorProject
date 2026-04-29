@@ -2,14 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from 'next/link';
 import {
   ChevronLeft, ArrowUpRight, Star, BookOpen, FileText,
   ClipboardList, Share2, Loader2, ExternalLink, Check,
-  Bot, Calendar, Tag, ShieldCheck, ScrollText, Link2
+  Bot, Calendar, Tag, ShieldCheck, ScrollText, Link2,
+  ArrowLeft, Copy, CheckCircle2, ChevronRight, Bookmark, ShieldAlert
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import YojnaSaathi from "@/components/YojnaSaathi";
+import translations from "@/lib/translations";
 
 const parseJson = (f) => {
   if (!f) return [];
@@ -56,22 +59,13 @@ const FormattedDetails = ({ text }) => {
   );
 };
 
-const SECTIONS = [
-  { id: 'details',     label: 'Details',             icon: BookOpen },
-  { id: 'benefits',    label: 'Benefits',             icon: Star },
-  { id: 'eligibility', label: 'Eligibility',          icon: ShieldCheck },
-  { id: 'application', label: 'How to Apply',         icon: ClipboardList },
-  { id: 'documents',   label: 'Documents Required',   icon: ScrollText },
-  { id: 'sources',     label: 'Sources',              icon: Link2 },
-];
-
 const SECTION_STYLES = {
-  details:     { icon: BookOpen,     accent: 'bg-blue-50 text-blue-600',    border: 'border-blue-100',    title: 'Details' },
-  benefits:    { icon: Star,         accent: 'bg-amber-50 text-amber-600',  border: 'border-amber-100',   title: 'Benefits' },
-  eligibility: { icon: ShieldCheck,  accent: 'bg-emerald-50 text-emerald-600', border: 'border-emerald-100', title: 'Eligibility' },
-  application: { icon: ClipboardList,accent: 'bg-purple-50 text-purple-600', border: 'border-purple-100', title: 'How to Apply' },
-  documents:   { icon: ScrollText,   accent: 'bg-rose-50 text-rose-600',    border: 'border-rose-100',    title: 'Documents Required' },
-  sources:     { icon: Link2,        accent: 'bg-gray-50 text-gray-500',    border: 'border-gray-100',    title: 'Sources' },
+  details:     { icon: BookOpen,     accent: 'bg-blue-50 text-blue-600',    border: 'border-blue-100' },
+  benefits:    { icon: Star,         accent: 'bg-amber-50 text-amber-600',  border: 'border-amber-100' },
+  eligibility: { icon: ShieldCheck,  accent: 'bg-emerald-50 text-emerald-600', border: 'border-emerald-100' },
+  application: { icon: ClipboardList,accent: 'bg-purple-50 text-purple-600', border: 'border-purple-100' },
+  documents:   { icon: ScrollText,   accent: 'bg-rose-50 text-rose-600',    border: 'border-rose-100' },
+  sources:     { icon: Link2,        accent: 'bg-gray-50 text-gray-500',    border: 'border-gray-100' },
 };
 
 export default function SchemeDetailsPage() {
@@ -82,14 +76,39 @@ export default function SchemeDetailsPage() {
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
   const [activeSection, setActiveSection] = useState('details');
+  const [lang, setLang] = useState('en');
+  const [isLangLoaded, setIsLangLoaded] = useState(false);
+
+  const t = translations[lang]?.details || translations['en'].details;
+
+  const SECTIONS = [
+    { id: 'details', label: t.secDetails, icon: Bookmark },
+    { id: 'benefits', label: t.secBenefits, icon: CheckCircle2 },
+    { id: 'eligibility', label: t.secElig, icon: ShieldAlert },
+    { id: 'application', label: t.secApp, icon: ChevronRight },
+    { id: 'documents', label: t.secDocs, icon: Copy },
+  ];
 
   useEffect(() => {
-    if (!id) return;
+    const saved = localStorage.getItem('yojna_lang');
+    if (saved) setLang(saved);
+    setIsLangLoaded(true);
+  }, []);
+
+  const handleLangChange = (newLang) => {
+    setLang(newLang);
+    localStorage.setItem('yojna_lang', newLang);
+  };
+
+  useEffect(() => {
+    if (!id || !isLangLoaded) return;
+    let isMounted = true;
     (async () => {
-      try { setLoading(true); const r = await fetch(`/api/schemes/${id}`); if (!r.ok) throw new Error(`${r.status}`); setScheme(await r.json()); }
-      catch (e) { setError(e.message); } finally { setLoading(false); }
+      try { setLoading(true); const r = await fetch(`/api/schemes/${id}?lang=${lang}`); if (!r.ok) throw new Error(`${r.status}`); const data = await r.json(); if (isMounted) setScheme(data); }
+      catch (e) { if (isMounted) setError(e.message); } finally { if (isMounted) setLoading(false); }
     })();
-  }, [id]);
+    return () => { isMounted = false; };
+  }, [id, lang, isLangLoaded]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -98,29 +117,25 @@ export default function SchemeDetailsPage() {
     );
     SECTIONS.forEach(s => { const el = document.getElementById(s.id); if (el) observer.observe(el); });
     return () => observer.disconnect();
-  }, [scheme]);
+  }, [scheme, lang]);
 
-  const shareScheme = async () => {
-    const url = window.location.href;
-    const title = scheme?.["Scheme Title"] || 'Government Scheme';
-    if (navigator.share) { try { await navigator.share({ title, url }); } catch {} }
-    else { await navigator.clipboard.writeText(`${title}\n${url}`); setCopied(true); setTimeout(() => setCopied(false), 2000); }
+  const handleCopyLink = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    setCopied(true); setTimeout(() => setCopied(false), 2000);
   };
 
   if (loading) return (
     <div className="min-h-screen bg-white flex flex-col">
-      <Navbar />
-      <div className="flex-1 flex flex-col items-center justify-center gap-4">
-        <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
-          <Loader2 className="w-7 h-7 text-[#3B82F6] animate-spin" />
-        </div>
-        <span className="text-sm font-semibold text-gray-500">Loading scheme…</span>
+      <Navbar lang={lang} setLang={handleLangChange} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col items-center justify-center min-h-[50vh]">
+          <div className="w-16 h-16 border-4 border-[#0271BC]/20 border-t-[#0271BC] rounded-full animate-spin mb-4" />
+          <p className="text-gray-500 font-medium">Loading scheme details...</p>
       </div>
     </div>
   );
 
   if (error || !scheme) return (
-    <div className="min-h-screen bg-white flex flex-col"><Navbar />
+    <div className="min-h-screen bg-white flex flex-col"><Navbar lang={lang} setLang={handleLangChange} />
       <div className="flex-1 flex flex-col items-center justify-center gap-4 px-4">
         <div className="text-5xl">😕</div>
         <p className="text-xl font-extrabold text-gray-900">{error ? 'Something went wrong' : 'Scheme not found'}</p>
@@ -147,7 +162,6 @@ export default function SchemeDetailsPage() {
 
   return (
     <div className="min-h-screen bg-[#EFF6FF] flex flex-col pb-[72px] lg:pb-0 relative overflow-hidden">
-      {/* Blurry blue blobs */}
       <div className="pointer-events-none select-none fixed inset-0 z-0 overflow-hidden">
         <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#3B82F6]/15 blur-[110px]" />
         <div className="absolute top-[40%] -right-40 w-[400px] h-[400px] rounded-full bg-[#60A5FA]/12 blur-[120px]" />
@@ -155,45 +169,34 @@ export default function SchemeDetailsPage() {
       </div>
 
       <div className="relative z-10 flex flex-col flex-1">
-        <Navbar />
+        <Navbar lang={lang} setLang={handleLangChange} />
 
-        {/* Back button */}
         <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-6 pb-2">
-          <button onClick={() => router.push('/schemes')}
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-gray-500 hover:text-[#3B82F6] transition-colors group">
-            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Back to schemes
-          </button>
+          <Link href="/schemes" className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#0271BC] transition-colors mb-8">
+            <ArrowLeft className="w-4 h-4" /> {t.back}
+          </Link>
         </div>
 
         <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-12 flex flex-col lg:flex-row gap-6 lg:gap-8">
-
-          {/* ── Main Content ── */}
           <div className="flex-1 min-w-0 space-y-4">
-
-            {/* Hero Header Card */}
             <div className="bg-white rounded-3xl border border-blue-100 shadow-[0_4px_24px_rgba(59,130,246,0.10)] overflow-hidden">
               <div className="p-6 md:p-8">
-                {/* Level + category badges */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {scheme.Level && <span className={`text-xs px-3 py-1 rounded-full font-bold ${levelColor}`}>{scheme.Level}</span>}
                   {scheme["Benefit Type"] && <span className="text-xs px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-bold">{scheme["Benefit Type"]}</span>}
                   {scheme["Scheme Category"] && <span className="text-xs px-3 py-1 rounded-full bg-purple-100 text-purple-700 font-bold">{scheme["Scheme Category"]}</span>}
                 </div>
-
                 <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-snug">
                   {scheme["Scheme Title"] || "Untitled"}
                 </h1>
                 <p className="text-sm font-semibold text-gray-500 mt-2 uppercase tracking-wide">
                   {scheme["Department/State"] || ""}
                 </p>
-
                 {scheme["Date of Launch"] && (
                   <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 mt-2">
                     <Calendar className="w-3.5 h-3.5" /> Launched: {scheme["Date of Launch"]}
                   </p>
                 )}
-
-                {/* Tags */}
                 {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-5">
                     {tags.slice(0, 7).map((t, i) => (
@@ -203,35 +206,32 @@ export default function SchemeDetailsPage() {
                     ))}
                   </div>
                 )}
-
-                {/* CTA Buttons */}
                 <div className="flex flex-wrap gap-3 mt-6">
                   <button
                     onClick={() => window.dispatchEvent(new CustomEvent('openChatWithScheme', { detail: id }))}
                     className="inline-flex items-center gap-2 bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] text-white px-6 py-3 rounded-full text-sm font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all">
-                    <Bot className="w-4 h-4" /> Check Eligibility with AI
+                    <Bot className="w-4 h-4" /> {t.checkElig}
                   </button>
                   {officialUrl && (
                     <a href={officialUrl} target="_blank" rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-white text-[#3B82F6] border-2 border-blue-100 px-6 py-3 rounded-full text-sm font-bold hover:border-[#3B82F6]/50 hover:bg-blue-50 transition-all">
-                      <ExternalLink className="w-4 h-4" /> Official Site
+                      <ExternalLink className="w-4 h-4" /> {t.offSite}
                     </a>
                   )}
                 </div>
               </div>
             </div>
 
-            {/* Section Cards */}
             {[
               { key: 'details',     content: <FormattedDetails text={scheme.Details} />, show: true },
               { key: 'benefits',    content: <BulletList items={benefits} numbered accent="from-[#3B82F6] to-[#60A5FA]" />, show: benefits.length > 0 },
               { key: 'eligibility', content: <BulletList items={eligibility} dot />, show: eligibility.length > 0 },
               { key: 'application', content: <BulletList items={steps} numbered accent="from-purple-500 to-purple-400" />, show: steps.length > 0 },
               { key: 'documents',   content: <DocGrid items={docs} />, show: docs.length > 0 },
-              { key: 'sources',     content: <SourcesList items={sources} />, show: sources.length > 0 },
             ].filter(s => s.show).map(({ key, content }) => {
               const style = SECTION_STYLES[key];
               const Icon = style.icon;
+              const sectionLabel = SECTIONS.find(s => s.id === key)?.label;
               return (
                 <div key={key} id={key}
                   className={`bg-white rounded-2xl border ${style.border} shadow-[0_2px_12px_rgba(59,130,246,0.07)] p-5 md:p-7 scroll-mt-28`}>
@@ -239,7 +239,7 @@ export default function SchemeDetailsPage() {
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${style.accent}`}>
                       <Icon className="w-4 h-4" />
                     </div>
-                    <h2 className="text-base font-extrabold text-gray-900">{style.title}</h2>
+                    <h2 className="text-base font-extrabold text-gray-900">{sectionLabel}</h2>
                   </div>
                   {content}
                 </div>
@@ -247,45 +247,47 @@ export default function SchemeDetailsPage() {
             })}
           </div>
 
-          {/* ── Desktop Sidebar ── */}
           <aside className="hidden lg:flex flex-col w-[260px] shrink-0 sticky top-[88px] self-start gap-4">
-            {/* Sections nav */}
-            <div className="bg-white rounded-2xl border border-blue-100 shadow-[0_2px_12px_rgba(59,130,246,0.07)] p-4">
-              <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 px-2">On this page</h3>
-              <div className="space-y-0.5">
-                {SECTIONS.map(s => {
-                  const Icon = s.icon;
-                  const isActive = activeSection === s.id;
-                  return (
-                    <a key={s.id} href={`#${s.id}`}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${isActive ? 'bg-blue-50 text-[#3B82F6]' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}>
-                      <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#3B82F6]' : 'text-gray-400'}`} />
-                      {s.label}
-                    </a>
-                  );
-                })}
+            <div className="hidden lg:block w-72 shrink-0">
+              <div className="sticky top-28 bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <h3 className="text-sm font-extrabold text-gray-900 uppercase tracking-wider mb-4">{t.onPage}</h3>
+                <nav className="space-y-1">
+                  {SECTIONS.map((s) => {
+                    const Icon = s.icon;
+                    const isActive = activeSection === s.id;
+                    return (
+                      <a key={s.id} href={`#${s.id}`}
+                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${isActive ? 'bg-blue-50 text-[#3B82F6]' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}>
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-[#3B82F6]' : 'text-gray-400'}`} />
+                        {s.label}
+                      </a>
+                    );
+                  })}
+                </nav>
               </div>
             </div>
 
-            {/* Share */}
             <div className="bg-white rounded-2xl border border-blue-100 shadow-[0_2px_12px_rgba(59,130,246,0.07)] p-4">
-              <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Share</h3>
-              <button onClick={shareScheme}
-                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold text-gray-600 hover:text-[#3B82F6] hover:bg-blue-50 transition-all">
-                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
-                {copied ? 'Copied!' : 'Copy link'}
-              </button>
+              <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">{t.shareTitle}</h3>
+              <div className="flex gap-2">
+                <button onClick={handleCopyLink} className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm">
+                  {copied ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                  {copied ? t.copied : t.copy}
+                </button>
+                <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm">
+                  <Share2 className="w-4 h-4" /> {t.share}
+                </button>
+              </div>
             </div>
 
-            {/* AI CTA */}
             <div className="bg-gradient-to-br from-[#3B82F6] to-[#2563EB] rounded-2xl p-5 text-white shadow-lg">
               <Bot className="w-6 h-6 mb-3 opacity-90" />
-              <p className="text-sm font-extrabold leading-snug mb-1">Check your eligibility</p>
-              <p className="text-xs text-white/75 mb-4 leading-relaxed">Chat with our AI in your language</p>
+              <p className="text-sm font-extrabold leading-snug mb-1">{t.eligTitle}</p>
+              <p className="text-xs text-white/75 mb-4 leading-relaxed">{t.eligDesc}</p>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('openChatWithScheme', { detail: id }))}
                 className="w-full py-2.5 rounded-xl bg-white text-[#2563EB] text-sm font-bold hover:bg-blue-50 transition-colors">
-                Ask AI →
+                {t.askAi}
               </button>
             </div>
           </aside>
@@ -293,14 +295,14 @@ export default function SchemeDetailsPage() {
 
         {/* Mobile Bottom Bar */}
         <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-t border-blue-100 px-4 py-3 flex items-center gap-3 shadow-[0_-4px_20px_rgba(59,130,246,0.1)]">
-          <button onClick={shareScheme}
+          <button onClick={handleCopyLink}
             className="w-11 h-11 shrink-0 rounded-full bg-blue-50 flex items-center justify-center text-[#3B82F6] hover:bg-blue-100 transition-colors">
             {copied ? <Check className="w-5 h-5 text-emerald-500" /> : <Share2 className="w-5 h-5" />}
           </button>
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('openChatWithScheme', { detail: id }))}
             className="flex-1 h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] text-white rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all">
-            <Bot className="w-4 h-4" /> Check Eligibility <ArrowUpRight className="w-4 h-4" />
+            <Bot className="w-4 h-4" /> {t.checkEligMobile} <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
 

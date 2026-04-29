@@ -5,17 +5,50 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Globe, ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
+import translations from "@/lib/translations";
 
-export default function Navbar({ lang = "en", setLang = () => { } }) {
+const LANGUAGES = [
+  { k: 'en', l: 'English',    short: 'EN' },
+  { k: 'hi', l: 'हिंदी',      short: 'HI' },
+  { k: 'bn', l: 'বাংলা',      short: 'BN' },
+  { k: 'ta', l: 'தமிழ்',      short: 'TA' },
+  { k: 'te', l: 'తెలుగు',     short: 'TE' },
+  { k: 'mr', l: 'मराठी',      short: 'MR' },
+  { k: 'gu', l: 'ગુજરાતી',    short: 'GU' },
+  { k: 'kn', l: 'ಕನ್ನಡ',      short: 'KN' },
+  { k: 'ml', l: 'മലയാളം',    short: 'ML' },
+  { k: 'pa', l: 'ਪੰਜਾਬੀ',     short: 'PA' },
+  { k: 'ur', l: 'اردو',       short: 'UR' },
+];
+
+const TRANSLATED_LANGS = ['hi', 'bn', 'ta', 'te', 'mr', 'gu', 'kn', 'ml', 'pa', 'ur'];
+
+export default function Navbar({ lang: langProp, setLang: setLangProp }) {
+  const [internalLang, setInternalLang] = useState("en");
   const [langOpen, setLangOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const langRef = useRef(null);
   const pathname = usePathname();
 
-  const t = {
-    en: { brand: "Yojna Saathi", home: "Home", schemes: "Schemes", chat: "Chat", cta: "Find Schemes" },
-    hi: { brand: "योजना साथी", home: "होम", schemes: "योजनाएँ", chat: "चैट", cta: "योजना खोजें" },
-  }[lang];
+  // Read from localStorage on mount — single source of truth
+  useEffect(() => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('yojna_lang') : null;
+    const resolved = saved || 'en';
+    setInternalLang(resolved);
+    if (setLangProp) setLangProp(resolved);
+  }, []);
+
+  // The actual lang to use: prop (from parent) or internal
+  const lang = langProp ?? internalLang;
+
+  const handleLangChange = (k) => {
+    if (typeof window !== 'undefined') localStorage.setItem('yojna_lang', k);
+    setInternalLang(k);
+    if (setLangProp) setLangProp(k);
+    setLangOpen(false);
+  };
+
+  const t = translations[lang]?.navbar || translations['en'].navbar;
 
   const links = [
     { href: "/", label: t.home },
@@ -35,6 +68,8 @@ export default function Navbar({ lang = "en", setLang = () => { } }) {
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
+  const currentLangLabel = LANGUAGES.find(l => l.k === lang)?.short || 'EN';
+
   return (
     <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -45,6 +80,7 @@ export default function Navbar({ lang = "en", setLang = () => { } }) {
             alt="Yojna Saathi Logo"
             width={56}
             height={56}
+            priority={true}
             className="object-contain group-hover:scale-105 transition-all duration-300"
           />
           <span className="text-lg md:text-xl font-extrabold gradient-text tracking-tight">
@@ -72,17 +108,20 @@ export default function Navbar({ lang = "en", setLang = () => { } }) {
             <button onClick={() => setLangOpen(!langOpen)}
               className="flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-sm font-bold text-gray-600 hover:text-[#3B82F6] hover:bg-blue-50/50 transition-all duration-300 hover:-translate-y-0.5">
               <Globe className="w-4 h-4 text-[#3B82F6]" />
-              <span className="hidden xs:inline-block">{lang === 'en' ? 'EN' : 'HI'}</span>
+              <span className="hidden xs:inline-block">{currentLangLabel}</span>
               <ChevronDown className={`w-3.5 h-3.5 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {langOpen && (
-              <div className="absolute right-0 mt-2 w-36 bg-white rounded-2xl shadow-xl shadow-black/5 border border-black/5 overflow-hidden z-50">
-                {[{ k: 'en', l: '🇬🇧 English' }, { k: 'hi', l: '🇮🇳 हिंदी' }].map(o => (
-                  <button key={o.k} onClick={() => { setLang(o.k); setLangOpen(false); }}
-                    className={`w-full text-left px-4 py-3 text-sm transition-colors flex items-center gap-2
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded-2xl shadow-xl shadow-black/5 border border-black/5 overflow-hidden z-50">
+                {LANGUAGES.map(o => (
+                  <button key={o.k} onClick={() => handleLangChange(o.k)}
+                    className={`w-full text-left px-4 py-3 text-sm transition-colors flex items-center justify-between gap-2
                       ${lang === o.k ? 'bg-blue-50 text-[#3B82F6] font-bold' : 'bg-white text-gray-700 hover:bg-gray-50 font-medium'}`}>
-                    {o.l}
+                    <span>{o.l}</span>
+                    {!TRANSLATED_LANGS.includes(o.k) && o.k !== 'en' && (
+                      <span className="text-[10px] text-gray-400 font-normal">soon</span>
+                    )}
                   </button>
                 ))}
               </div>

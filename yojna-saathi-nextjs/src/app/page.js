@@ -4,53 +4,29 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import YojnaSaathi from "@/components/YojnaSaathi";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   Search, HelpCircle, ChevronDown, ArrowRight,
   Sparkles, CheckCircle2, Shield, Landmark, Users, FileText
 } from "lucide-react";
+import translations from "@/lib/translations";
+import { CATEGORIES } from "@/data/categoryData";
 
 export default function Home() {
   const [lang, setLang] = useState("en");
   const [openFaq, setOpenFaq] = useState(null);
   const router = useRouter();
 
-  const t = useMemo(() => ({
-    en: {
-      badge: "AI-Powered • 11 Languages • 3500+ Schemes",
-      h1a: "Empowering Citizens with", h1b: "Government Schemes",
-      desc: "Discover, understand, and apply for 3500+ Central & State government schemes — in your own language.",
-      cta1: "Explore Schemes", cta2: "Chat with Saathi",
-      stat1: "Total Schemes", stat2: "Central Schemes", stat3: "State Schemes",
-      catTitle: "Explore by Category", catSub: "Find schemes across Agriculture, Education, Health, and more.",
-      howTitle: "How It Works", howSub: "Three simple steps to find the right scheme.",
-      s1: "Share Your Details", s1d: "Tell us your age, state, occupation, and category.",
-      s2: "Get Recommendations", s2d: "AI scans 3500+ schemes and shows your best matches.",
-      s3: "Apply with Guidance", s3d: "Step-by-step instructions to apply on official portals.",
-      faqTitle: "Frequently Asked Questions",
-      ctaT: "Need help finding the right scheme?",
-      ctaD: "Talk to our AI assistant in Hindi, Tamil, Bengali, or 8 other languages.",
-      ctaBtn: "Start Chatting →",
-    },
-    hi: {
-      badge: "AI-संचालित • 11 भाषाएँ • 3500+ योजनाएँ",
-      h1a: "नागरिकों को सशक्त बनाना", h1b: "सरकारी योजनाओं से",
-      desc: "अपनी भाषा में 3500+ केंद्र और राज्य सरकारी योजनाओं को खोजें, समझें और आवेदन करें।",
-      cta1: "योजनाएँ देखें", cta2: "साथी से चैट करें",
-      stat1: "कुल योजनाएँ", stat2: "केंद्रीय योजनाएँ", stat3: "राज्य योजनाएँ",
-      catTitle: "श्रेणी के अनुसार खोजें", catSub: "कृषि, शिक्षा, स्वास्थ्य और अन्य में योजनाएँ।",
-      howTitle: "कैसे काम करता है", howSub: "सही योजना खोजने के तीन आसान कदम।",
-      s1: "विवरण दें", s1d: "उम्र, राज्य, व्यवसाय और श्रेणी बताएं।",
-      s2: "सिफ़ारिशें पाएं", s2d: "AI 3500+ योजनाओं में से सर्वश्रेष्ठ दिखाता है।",
-      s3: "मार्गदर्शन से आवेदन", s3d: "आधिकारिक पोर्टल पर आवेदन के चरण-दर-चरण निर्देश।",
-      faqTitle: "अक्सर पूछे जाने वाले प्रश्न",
-      ctaT: "सही योजना खोजने में सहायता चाहिए?",
-      ctaD: "AI सहायक से हिंदी, तमिल, बंगाली या 8 अन्य भाषाओं में बात करें।",
-      ctaBtn: "चैट शुरू करें →",
-    }
-  })[lang], [lang]);
+  useEffect(() => {
+    const saved = localStorage.getItem('yojna_lang');
+    if (saved) setLang(saved);
+  }, []);
+
+  const t = useMemo(() => {
+    return translations[lang]?.home || translations['en'].home;
+  }, [lang]);
 
   const stats = [
     { v: "5400+", l: t.stat1, icon: <Shield className="w-5 h-5 md:w-6 md:h-6" />, c: "text-[#0271BC]", bg: "bg-blue-50" },
@@ -58,18 +34,13 @@ export default function Home() {
     { v: "5400+", l: t.stat3, icon: <Users className="w-5 h-5 md:w-6 md:h-6" />, c: "text-amber-600", bg: "bg-amber-50" },
   ];
 
-  const cats = [
-    { n: lang === 'en' ? "Education" : "शिक्षा", c: 966, i: "📚", s: lang === 'en' ? "Scholarships, Skills" : "छात्रवृत्ति", k: "education" },
-    { n: lang === 'en' ? "Social Welfare" : "समाज कल्याण", c: 4208, i: "🤝", s: lang === 'en' ? "Empowerment, Pension" : "सशक्तिकरण, पेंशन", k: "social" },
-    { n: lang === 'en' ? "Health" : "स्वास्थ्य", c: 137, i: "🏥", s: lang === 'en' ? "Insurance, Treatment" : "बीमा, उपचार", k: "health" },
-    { n: lang === 'en' ? "Women & Child" : "महिला एवं बाल", c: 161, i: "👩", s: lang === 'en' ? "Maternity, Nutrition" : "मातृत्व, पोषण", k: "women" },
-    { n: lang === 'en' ? "Agriculture" : "कृषि", c: 245, i: "🌾", s: lang === 'en' ? "Farming, Subsidies" : "खेती, सब्सिडी", k: "agri" },
-    { n: lang === 'en' ? "Business" : "व्यापार", c: 180, i: "💼", s: lang === 'en' ? "Loans, MSME" : "ऋण, एमएसएमई", k: "business" },
-    { n: lang === 'en' ? "Housing" : "आवास", c: 95, i: "🏠", s: lang === 'en' ? "Low-cost Homes" : "कम लागत", k: "housing" },
-    { n: lang === 'en' ? "Employment" : "रोजगार", c: 310, i: "🔧", s: lang === 'en' ? "Jobs, Training" : "नौकरी", k: "skills" },
-    { n: lang === 'en' ? "Banking" : "बैंकिंग", c: 140, i: "🏦", s: lang === 'en' ? "Insurance, Savings" : "बीमा, बचत", k: "bfsi" },
-    { n: lang === 'en' ? "Science & IT" : "विज्ञान", c: 65, i: "💻", s: lang === 'en' ? "Research" : "अनुसंधान", k: "science" },
-  ];
+  const cats = CATEGORIES.map(c => ({
+    n: c.names[lang] || c.names.en,
+    c: c.count,
+    i: c.icon,
+    s: c.subs[lang] || c.subs.en,
+    k: c.key,
+  }));
 
   const faqs = [
     { q: lang === 'en' ? "What is Yojna Saathi?" : "योजना साथी क्या है?", a: lang === 'en' ? "A free AI platform to help every Indian find eligible government schemes in their own language." : "एक मुफ्त AI मंच जो हर भारतीय को पात्र सरकारी योजनाएं खोजने में मदद करता है।" },
@@ -99,7 +70,7 @@ export default function Home() {
         <section className="relative w-full px-4 sm:px-6 lg:px-8 pt-12 pb-32 md:pt-16 md:pb-48 min-h-[75vh] flex flex-col justify-start overflow-hidden">
           {/* Full Background Image */}
           <div className="absolute inset-0 z-0">
-            <img src="/banner4.png" alt="Hero Background" className="w-full h-full object-cover object-bottom" />
+            <img src="/banner5.png" alt="Hero Background" fetchPriority="high" className="w-full h-full object-cover object-bottom" />
           </div>
 
           <div className="relative z-10 text-center max-w-4xl mx-auto animate-fade-in-up">
@@ -114,8 +85,18 @@ export default function Home() {
               {t.desc}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 px-4 sm:px-0">
+              {/* Primary CTA: Find Schemes for You */}
+              <Link href="/find-schemes"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0271BC] text-white px-8 py-3.5 rounded-full font-bold shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all text-[15px] group">
+                <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                {({
+                  en: "Find Schemes For You", hi: "अपने लिए योजनाएं खोजें", ta: "உங்களுக்கான திட்டங்கள்", te: "మీ కోసం పథకాలు",
+                  bn: "আপনার জন্য প্রকল্প খুঁজুন", gu: "તમારા માટે યોજનાઓ શોધો", mr: "तुमच्यासाठी योजना शोधा", pa: "ਆਪਣੇ ਲਈ ਸਕੀਮਾਂ ਲੱਭੋ",
+                  kn: "ನಿಮಗಾಗಿ ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ", ml: "നിങ്ങൾക്കുള്ള പദ്ധതികൾ കണ്ടെത്തുക", or: "ଆପଣଙ୍କ ପାଇଁ ଯୋଜନା ଖୋଜନ୍ତୁ", ur: "اپنے لیے اسکیمیں تلاش کریں"
+                })[lang] || "Find Schemes For You"}
+              </Link>
               <Link href="/schemes"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0271BC] text-white px-8 py-3.5 rounded-full font-bold shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all text-[15px]">
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/60 backdrop-blur-md text-[#0271BC] border border-white px-8 py-3.5 rounded-full font-bold shadow-sm hover:bg-white/80 transition-all text-[15px]">
                 {t.cta1}<ArrowRight className="w-4 h-4" />
               </Link>
               <button onClick={() => router.push('/chat')}
@@ -157,7 +138,7 @@ export default function Home() {
                 <div className="text-base font-bold text-gray-900">{c.n}</div>
                 <div className="text-xs text-gray-400 font-medium mt-1">{c.s}</div>
                 <div className="text-xs font-bold text-[#0271BC] mt-4 flex items-center gap-1">
-                  {c.c} {lang === 'en' ? 'Schemes' : 'योजनाएँ'} <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                  {c.c} {translations[lang]?.schemes?.found?.split(' ')[0] || 'Schemes'} <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
                 </div>
               </Link>
             ))}

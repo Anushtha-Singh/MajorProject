@@ -1,19 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import YojnaSaathi from '@/components/YojnaSaathi';
 import Navbar from '@/components/Navbar';
 import { Bot, Globe, Zap, Sparkles } from 'lucide-react';
+import translations from "@/lib/translations";
 
 export default function ChatPage() {
   const router = useRouter();
   const [lang, setLang] = useState("en");
 
+  useEffect(() => {
+    const saved = localStorage.getItem('yojna_lang');
+    if (saved) setLang(saved);
+  }, []);
+
+  const t = translations[lang]?.chat || translations['en'].chat;
+
   const features = [
-    { icon: <Globe className="w-5 h-5" />, t: lang === 'en' ? "11 Languages" : "11 भाषाएं", d: lang === 'en' ? "Hindi, Tamil, Bengali, and more" : "हिंदी, तमिल, बंगाली और अधिक" },
-    { icon: <Zap className="w-5 h-5" />, t: lang === 'en' ? "Instant Answers" : "तुरंत उत्तर", d: lang === 'en' ? "AI-powered with real-time streaming" : "AI-संचालित रियल-टाइम स्ट्रीमिंग" },
-    { icon: <Sparkles className="w-5 h-5" />, t: lang === 'en' ? "Voice Support" : "आवाज़ सहायता", d: lang === 'en' ? "Speak or type your questions" : "बोलें या टाइप करें" },
+    { icon: <Globe className="w-5 h-5" />, t: t.f1t, d: t.f1d },
+    { icon: <Zap className="w-5 h-5" />, t: t.f2t, d: t.f2d },
+    { icon: <Sparkles className="w-5 h-5" />, t: t.f3t, d: t.f3d },
   ];
 
   return (
@@ -27,13 +35,11 @@ export default function ChatPage() {
             <Bot className="w-7 h-7 text-white" />
           </div>
           <h1 className="text-3xl font-extrabold text-gray-900 leading-tight">
-            {lang === 'en' ? 'Chat with ' : 'बात करें '}
+            {t.title}
             <span className="gradient-text">YojnaSaathi</span>
           </h1>
           <p className="mt-4 text-[15px] font-medium text-gray-500 leading-relaxed">
-            {lang === 'en' 
-              ? 'Ask about government schemes. Find eligible schemes, understand benefits, and get step-by-step application guidance.' 
-              : 'सरकारी योजनाओं के बारे में पूछें। योजनाओं के लाभ समझें और आवेदन के लिए मार्गदर्शन प्राप्त करें।'}
+            {t.subtitle}
           </p>
           <div className="mt-10 flex flex-col gap-6">
             {features.map((f, i) => (

@@ -136,6 +136,22 @@ export const languageNames = {
   mr: "मराठी"
 };
 
+// Bilingual display names for language pickers — "NativeScript - English"
+export const languageDisplayNames = {
+  en: "English",
+  hi: "हिन्दी - Hindi",
+  ta: "தமிழ் - Tamil",
+  te: "తెలుగు - Telugu",
+  bn: "বাংলা - Bengali",
+  gu: "ગુજરાતી - Gujarati",
+  pa: "ਪੰਜਾਬੀ - Punjabi",
+  kn: "ಕನ್ನಡ - Kannada",
+  ml: "മലയാളം - Malayalam",
+  or: "ଓଡ଼ିଆ - Odia",
+  mr: "मराठी - Marathi",
+  ur: "اردو - Urdu",
+};
+
 // Greeting messages in different languages
 export const greetings = {
   en: "Welcome to YojnaSaathi! Your easy path to government schemes. How can I help you today?",

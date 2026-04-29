@@ -1,13 +1,15 @@
 'use client';
 
 import Link from "next/link";
-import { Sparkles, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
+import Image from "next/image";
+import { useMemo } from "react";
+import translations from "@/lib/translations";
 
 export default function Footer({ lang = "en" }) {
-  const t = {
-    en: { brand: "Yojna Saathi", tagline: "Empowering every citizen with accessible government scheme assistance.", privacy: "Privacy", terms: "Terms", support: "Support", home: "Home", schemes: "Schemes", chat: "Chat" },
-    hi: { brand: "योजना साथी", tagline: "हर नागरिक को सुलभ सरकारी योजना सहायता से सशक्त बनाना।", privacy: "गोपनीयता", terms: "शर्तें", support: "सहायता", home: "होम", schemes: "योजनाएँ", chat: "चैट" },
-  }[lang];
+  const t = useMemo(() => {
+    return translations[lang]?.footer || translations['en'].footer;
+  }, [lang]);
 
   return (
     <footer className="bg-white/60 border-t border-black/5 mt-auto">
@@ -16,9 +18,13 @@ export default function Footer({ lang = "en" }) {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#60A5FA] flex items-center justify-center shadow-sm">
-                <Sparkles className="w-4 h-4 text-white" />
-              </div>
+              <Image
+                src="/logo.png"
+                alt="Yojna Saathi Logo"
+                width={48}
+                height={48}
+                className="object-contain"
+              />
               <span className="text-xl font-extrabold gradient-text tracking-tight">{t.brand}</span>
             </div>
             <p className="text-sm text-gray-500 leading-relaxed max-w-sm">{t.tagline}</p>
