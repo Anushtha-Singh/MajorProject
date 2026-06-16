@@ -1,0 +1,11 @@
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* remove scrollbars */
+  }
+  #flutter_container { /* or whatever the root div id is */
+    height: 100%;
+  }
+
